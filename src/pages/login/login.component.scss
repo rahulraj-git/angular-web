@@ -1,0 +1,72 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Centering the login box */
+  .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1a1a1a; /* Black background */
+  }
+  
+  /* Styling for the login box */
+  .login-box {
+    width: 500px;
+    padding: 40px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  /* Heading */
+  .login-box h2 {
+    color: #ff0000; /* Red color */
+    margin-bottom: 20px;
+  }
+  
+  /* Input group styling */
+  .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    color: #ff0000; /* Red color */
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    background-color: #222;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+  }
+  
+  /* Styling for the login button */
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff0000; /* Red color */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Hover effect for the button */
+  .login-button:hover {
+    background-color: #cc0000; /* Darker red */
+  }
