@@ -1,0 +1,74 @@
+<div class="products-container">
+    <h1 class="products-title">Our Products</h1>
+
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 1" (mouseover)="changeImage('../../assets/image2.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 1</h5>
+                        <p>Description for Product 1.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 2" (mouseover)="changeImage('assets/product2-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 2</h5>
+                        <p>Description for Product 2.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 3" (mouseover)="changeImage('assets/product3-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 3</h5>
+                        <p>Description for Product 3.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 4" (mouseover)="changeImage('assets/product4-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 4</h5>
+                        <p>Description for Product 4.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 5" (mouseover)="changeImage('assets/product5-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 5</h5>
+                        <p>Description for Product 5.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 6" (mouseover)="changeImage('assets/product6-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 6</h5>
+                        <p>Description for Product 6.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 7" (mouseover)="changeImage('assets/product7-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 7</h5>
+                        <p>Description for Product 7.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                    <div class="col">
+                        <img src="../../assets/image1.webp" class="d-block w-100" alt="Product 8" (mouseover)="changeImage('assets/product8-hover.jpg')" (mouseleave)="resetImage()">
+                        <h5>Product 8</h5>
+                        <p>Description for Product 8.</p>
+                        <a class="btn shop-now" href="#">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>

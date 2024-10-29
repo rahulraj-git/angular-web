@@ -8,6 +8,7 @@ import { MainComponent } from 'src/components/main/main.component';
 import { CarouselComponent } from 'src/components/carousel/carousel.component';
 import { LoginComponent } from 'src/pages/login/login.component';
 import { MapSectionComponent } from 'src/components/map-section/map-section.component';
+import { OurProductsComponent } from 'src/components/our-products/our-products.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MapSectionComponent } from 'src/components/map-section/map-section.comp
     MainComponent,
     CarouselComponent,
     MapSectionComponent,
+    OurProductsComponent,
     LoginComponent,
   ],
   imports: [
