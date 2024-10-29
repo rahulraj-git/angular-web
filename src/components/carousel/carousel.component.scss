@@ -1,4 +1,28 @@
+/* Image fade-in and scale effect */
 .carousel-item img {
-    height: 80vh; // Set a fixed height for the carousel images
-    object-fit: cover; // Maintain aspect ratio
-  }
+  height: 80vh;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Active class for images */
+.carousel-item.active img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Caption fade-up animation */
+.carousel-caption h1, .carousel-caption p {
+  opacity: 0;
+  transform: translateY(20px); /* Starting from below */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Active class for captions */
+.carousel-caption.fade-up h1,
+.carousel-caption.fade-up p {
+  opacity: 1;
+  transform: translateY(0);
+}

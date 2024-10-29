@@ -61,3 +61,46 @@
   .navbar-main{
     border-bottom: 2px solid rgb(249 244 244);
   }
+  /* Initial hidden state for header */
+.header-container {
+  opacity: 0;
+  transform: translateY(-20px); /* Slide up effect */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Fade-in and slide-in animation */
+.header-container.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header-container {
+  background-image: linear-gradient(to right, #696868, #000000);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+}
+
+.brand-logo {
+  width: 120px;
+  height: auto;
+  animation: heartbeat 4s ease-in-out infinite;
+}
+
+/* Keyframes for heartbeat animation */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1); /* Start and end at normal size */
+  }
+  30% {
+    transform: scale(1.1); /* Scale up slightly */
+  }
+  50% {
+    transform: scale(0.9); /* Scale down slightly */
+  }
+  70% {
+    transform: scale(1.05); /* Scale up again slightly */
+  }
+}
+.menu-icon{
+  width: 25px;
+}
