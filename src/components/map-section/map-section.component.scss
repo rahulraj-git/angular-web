@@ -1,0 +1,13 @@
+.map-container {
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+  }
+  
+  .map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
