@@ -9,6 +9,8 @@ import { CarouselComponent } from 'src/components/carousel/carousel.component';
 import { LoginComponent } from 'src/pages/login/login.component';
 import { MapSectionComponent } from 'src/components/map-section/map-section.component';
 import { OurProductsComponent } from 'src/components/our-products/our-products.component';
+import { FooterComponent } from 'src/pages/footer/footer.component';
+import { CategoriesComponent } from 'src/components/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { OurProductsComponent } from 'src/components/our-products/our-products.c
     CarouselComponent,
     MapSectionComponent,
     OurProductsComponent,
+    FooterComponent,
+    CategoriesComponent,
     LoginComponent,
   ],
   imports: [

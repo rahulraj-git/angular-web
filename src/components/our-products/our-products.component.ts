@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class OurProductsComponent {
   changeImage(hoverImage: string) {
-    debugger
     const carouselImages = document.querySelectorAll('.carousel-item img');
     carouselImages.forEach((img:any) => {
       if (img.src.includes(hoverImage)) {
