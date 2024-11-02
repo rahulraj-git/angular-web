@@ -1,0 +1,70 @@
+.whatsapp-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    background-color: rgb(9 213 105 / 82%);
+    border-radius: 25px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    animation: bounce 1.5s infinite; /* Use bounce animation */
+    animation-play-state: running; /* Ensure the animation is running by default */
+  
+    &:hover {
+      transform: scale(1.1); /* Adjusted scale for zoom effect */
+      animation-play-state: paused; /* Pause animation on hover */
+    }
+  
+    .chat-text {
+      display: inline; /* Show text on all screens */
+      margin-right: 8px;
+      font-size: 1rem;
+      text-align: center;
+      font-family: 'Arial', sans-serif; /* Standard font */
+    }
+  
+    .whatsapp-icon {
+      width: 30px; /* Increased size for better visibility */
+      height: 30px;
+    }
+  
+    /* Bouncing Ball Animation with X-axis Movement */
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translate(0, 0); /* Start at original position */
+      }
+      40% {
+        transform: translate(10px, -30px); /* Move right and up for the bounce */
+      }
+      60% {
+        transform: translate(-5px, -15px); /* Slight left and lower bounce */
+      }
+    }
+  
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+      padding: 10px;
+      bottom: 15px;
+      right: 15px;
+  
+      .whatsapp-icon {
+        width: 25px; /* Adjust icon size for smaller screens */
+        height: 25px;
+      }
+    }
+  }
+  .reviews-container {
+    width: 100%;
+    padding: 40px 20px;
+    background-color: #f0f0f0; /* Adjust the background color as desired */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: 400px; /* Set a minimum height */
+    /* or */
+    height: 500px; /* Set a specific height */
+  }

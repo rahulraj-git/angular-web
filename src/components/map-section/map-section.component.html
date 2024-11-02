@@ -1,5 +1,23 @@
-<div class="map-wrapper">
-  <div class="map-container" (click)="redirectToGoogleMap()">
-      <img src="../../assets/map-image.png" alt="Shop Location">
+<div class="map-section-wrapper d-flex justify-content-between">
+  
+  <!-- 1st Section: Address -->
+  <div class="address-section" (click)="redirectToGoogleMap()">
+    <h3>Our Address</h3>
+    <p>Rigid Custom Jersey Manufacturer</p>
+    <p>123 Street Name, City, State, ZIP</p>
+    <p>Contact: (123) 456-7890</p>
   </div>
+
+  <!-- 2nd Section: Logo -->
+  <div class="logo-section d-flex align-items-center justify-content-center">
+    <img src="../../assets/logo-black.png" alt="Company Logo" class="company-logo">
+  </div>
+
+  <!-- 3rd Section: Map with animation -->
+  <div class="map-wrapper">
+    <div class="map-container" (click)="redirectToGoogleMap()">
+      <img src="../../assets/map-image.png" alt="Shop Location">
+    </div>
+  </div>
+
 </div>

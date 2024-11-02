@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-
+  openWhatsAppChat() {
+    const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+    const message = 'Hello! I would like to know more about your services.'; // Customize your default message
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    window.open(url, '_blank');
+  }
 }

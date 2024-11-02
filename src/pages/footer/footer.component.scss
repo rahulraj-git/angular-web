@@ -9,6 +9,7 @@
     color: #ff0000;
     font-weight: 600;
     margin-bottom: 15px;
+    text-align: center;
   }
   
   .about-text {
@@ -25,8 +26,16 @@
   .newsletter-form .form-control {
     border: 1px solid #ff0000;
     border-radius: 3px;
-    background-color: transparent;
-    color: #ffffff;
+    background-color: #ffffff; /* White background for the input box */
+    color: #000000; /* Black text for readability */
+    padding: 10px; /* Add padding for better usability */
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Added box-shadow for effects */
+  }
+  
+  .newsletter-form .form-control:focus {
+    background-color: #f0f0f0; /* Light gray background on focus */
+    transform: scale(1.02); /* Slight scale effect on focus */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Shadow effect on focus */
   }
   
   .btn-subscribe {
@@ -36,28 +45,31 @@
     border: none;
     padding: 5px 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Added transition for box-shadow */
   }
   
   .btn-subscribe:hover {
     background-color: #e60000;
+    transform: scale(1.05); /* Slight scale effect on hover */
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5); /* Shadow effect on hover */
   }
   
   .social-links {
     display: flex;
     gap: 15px;
     margin-top: 15px;
+    place-content: center;
   }
   
   .social-icon img {
     width: 24px;
     height: 24px;
-    filter: invert(1); /* Make SVG icons white */
-    transition: transform 0.3s;
+    transition: transform 0.3s, filter 0.3s; /* Adding filter transition for hover effect */
   }
   
   .social-icon:hover img {
-    transform: scale(1.1);
+    transform: scale(1.2); /* Increase size on hover */
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.6)); /* Glow effect on hover */
   }
   
   .footer-links {
@@ -71,12 +83,13 @@
   .footer-links a {
     color: #ffffff;
     font-size: 0.9rem;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s; /* Added transform for links */
   }
   
   .footer-links a:hover {
     color: #ff0000;
     text-shadow: 0px 1px 3px rgba(0, 123, 255, 0.3);
+    transform: translateY(-2px); /* Lift effect on hover */
   }
   
   @media (max-width: 768px) {

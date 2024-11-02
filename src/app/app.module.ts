@@ -11,6 +11,7 @@ import { MapSectionComponent } from 'src/components/map-section/map-section.comp
 import { OurProductsComponent } from 'src/components/our-products/our-products.component';
 import { FooterComponent } from 'src/pages/footer/footer.component';
 import { CategoriesComponent } from 'src/components/categories/categories.component';
+import { ReviewSectionComponent } from 'src/components/review-section/review-section.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CategoriesComponent } from 'src/components/categories/categories.compon
     OurProductsComponent,
     FooterComponent,
     CategoriesComponent,
+    ReviewSectionComponent,
     LoginComponent,
   ],
   imports: [
