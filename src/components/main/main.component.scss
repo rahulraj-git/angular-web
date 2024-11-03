@@ -59,12 +59,9 @@
       }
     }
   }
-  .reviews-container {
-    width: 100%;
-    padding: 40px 20px;
-    background-color: #f0f0f0; /* Adjust the background color as desired */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    min-height: 400px; /* Set a minimum height */
-    /* or */
-    height: 500px; /* Set a specific height */
+  .page-container > * {
+    margin-bottom: 50px;
+  }
+  .page-container > *:last-child {
+    margin-bottom: 0;
   }
