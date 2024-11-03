@@ -12,6 +12,8 @@ import { OurProductsComponent } from 'src/components/our-products/our-products.c
 import { FooterComponent } from 'src/pages/footer/footer.component';
 import { CategoriesComponent } from 'src/components/categories/categories.component';
 import { ReviewSectionComponent } from 'src/components/review-section/review-section.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,10 @@ import { ReviewSectionComponent } from 'src/components/review-section/review-sec
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    HttpClientModule ,
+    FormsModule,
+    CommonModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,49 +1,52 @@
 <div class="admin-dashboard-container">
-    <h2 class="text-center">Admin Dashboard</h2>
-  
-    <!-- Image Bulk Upload Section -->
-    <section class="upload-section">
-      <h3>Image Bulk Upload</h3>
-      <form (ngSubmit)="onImageBulkUploadSubmit()">
-        <input type="file" accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
-        <button type="submit" [disabled]="!isFileSelected('imageBulkUpload')">Upload Images</button>
-      </form>
-    </section>
-  
-    <!-- Data Bulk Upload Section -->
-    <section class="upload-section">
-      <h3>Data Bulk Upload</h3>
-      <form (ngSubmit)="onDataBulkUploadSubmit()">
-        <input type="file" (change)="onFileSelect($event, 'dataBulkUpload')" />
-        <button type="submit" [disabled]="!isFileSelected('dataBulkUpload')">Upload Data</button>
-      </form>
-    </section>
-  
-    <!-- Single Catalog Submission Section -->
-    <section class="catalog-section">
-      <h3>Single Catalog Submission</h3>
-      <form (ngSubmit)="onCatalogSubmit()">
-        <label>
-          Name:
-          <input type="text" name="name" required />
-        </label>
-  
-        <label>
-          Code:
-          <input type="text"  name="code" required />
-        </label>
-  
-        <label>
-          Description:
-          <textarea name="description" required></textarea>
-        </label>
-  
-        <label>
-          Image Upload:
-          <input type="file" accept="image/*" (change)="onFileSelect($event, 'catalogImage')" />
-        </label>
-  
-        <button type="submit" [disabled]="!isFileSelected('catalogImage')">Submit Catalog</button>
-      </form>
-    </section>
-  </div>
+  <h2 class="text-center">Admin Dashboard</h2>
+
+ <!-- Image Bulk Upload Section -->
+<section class="upload-section">
+  <h3>Image Bulk Upload</h3>
+  <form (submit)="onImageBulkUploadSubmit($event, categoryNameInput.value)">
+    <label>
+      Category Name:
+      <input type="text" #categoryNameInput required />
+    </label>
+    <input type="file" accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
+    <input type="file" accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
+    <button type="submit" [disabled]="!isFileSelected('imageBulkUpload') || !isFileSelected('dataCsvUpload') || !categoryNameInput.value">
+      Upload Images
+    </button>
+  </form>
+</section>
+
+  <!-- Data Bulk Upload Section -->
+  <!-- <section class="upload-section">
+    <h3>Data Bulk Upload</h3>
+    <form (ngSubmit)="onDataBulkUploadSubmit()">
+      <input type="file" (change)="onFileSelect($event, 'dataBulkUpload')" />
+      <button type="submit" [disabled]="!isFileSelected('dataBulkUpload')">Upload Data</button>
+    </form>
+  </section> -->
+
+  <!-- Single Catalog Submission Section -->
+  <section class="catalog-section">
+    <h3>Single Catalog Submission</h3>
+    <form (ngSubmit)="onCatalogSubmit(nameInput.value, codeInput.value, descriptionInput.value)">
+      <label>
+        Name:
+        <input type="text" #nameInput required />
+      </label>
+      <label>
+        Code:
+        <input type="text" #codeInput required />
+      </label>
+      <label>
+        Description:
+        <textarea #descriptionInput required></textarea>
+      </label>
+      <label>
+        Image Upload:
+        <input type="file" accept="image/*" (change)="onFileSelect($event, 'catalogImage')" />
+      </label>
+      <button type="submit" [disabled]="!isFileSelected('catalogImage')">Submit Catalog</button>
+    </form>
+  </section>
+</div>
