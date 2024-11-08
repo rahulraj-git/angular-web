@@ -1,16 +1,16 @@
 <div class="admin-dashboard-container">
   <h2 class="text-center">Admin Dashboard</h2>
 
- <!-- Image Bulk Upload Section -->
+<!-- Image Bulk Upload Section -->
 <section class="upload-section">
   <h3>Image Bulk Upload</h3>
-  <form (submit)="onImageBulkUploadSubmit($event, categoryNameInput.value)">
+  <form (submit)="onImageBulkUploadSubmit($event)">
     <label>
       Category Name:
       <input type="text" #categoryNameInput required />
     </label>
-    <input type="file" accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
-    <input type="file" accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
+    <input type="file" #imageFileInput accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
+    <input type="file" #csvFileInput accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
     <button type="submit" [disabled]="!isFileSelected('imageBulkUpload') || !isFileSelected('dataCsvUpload') || !categoryNameInput.value">
       Upload Images
     </button>
