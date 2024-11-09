@@ -14,7 +14,8 @@ import { CategoriesComponent } from 'src/components/categories/categories.compon
 import { ReviewSectionComponent } from 'src/components/review-section/review-section.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +34,9 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     HttpClientModule ,
     FormsModule,
-    CommonModule
-  
+    CommonModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

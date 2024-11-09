@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -17,12 +18,11 @@ export class AdminDashboardComponent {
   uploadMessage: string | null = null;
   isLoading: boolean = false;
 
-  // Access category input and file inputs
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
   @ViewChild('imageFileInput') imageFileInput!: ElementRef;
   @ViewChild('csvFileInput') csvFileInput!: ElementRef;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
   onFileSelect(event: any, type: string) {
     const file = event.target.files[0];
@@ -61,24 +61,29 @@ export class AdminDashboardComponent {
       formData.append('catalog_zip', this.selectedFiles.imageBulkUpload);
       formData.append('catalog_category', categoryName);
       formData.append('catalog_csv', this.selectedFiles.dataCsvUpload);
-  
+
       const headers = new HttpHeaders();
 
-      // Set responseType to 'text' to handle non-JSON responses
       this.http.post('https://rigidjersey.com/backend-api/api/upload_catalogs.php', formData, { headers, responseType: 'text' })
         .subscribe(
           (response: string) => {
             console.log('Image bulk upload response:', response);
             this.uploadMessage = response;
+            // Show a success message
+            this.snackBar.open('Successfully inserted data', 'Close', {
+              duration: 3000, // Adjust duration as needed
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['success-snackbar']
+            });
+
             this.resetFields();  // Clear all input fields and file selections
           },
           (error: HttpErrorResponse) => {
             console.error('Error during image bulk upload:', error);
-            if (error.error instanceof SyntaxError) {
-              this.uploadMessage = 'Parsing error in response. Please check the server response format.';
-            } else {
-              this.uploadMessage = 'Error during image bulk upload. Please try again.';
-            }
+            this.uploadMessage = error.error instanceof SyntaxError ? 
+              'Parsing error in response. Please check the server response format.' : 
+              'Error during image bulk upload. Please try again.';
           }
         ).add(() => {
           this.isLoading = false;
@@ -89,15 +94,13 @@ export class AdminDashboardComponent {
   }
 
   private resetFields() {
-    // Clear selected files
     this.selectedFiles = {
       imageBulkUpload: null,
       dataCsvUpload: null,
       dataBulkUpload: null,
       catalogImage: null
     };
-    
-    // Clear file inputs and category name input
+
     this.categoryNameInput.nativeElement.value = '';
     this.imageFileInput.nativeElement.value = '';
     this.csvFileInput.nativeElement.value = '';

@@ -5,7 +5,7 @@ import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboa
 import { LoginComponent } from 'src/pages/login/login.component';
 
 const routes: Routes = [
-  { path: 'home', component: MainComponent }, // Default route to MainComponent
+  { path: '', component: MainComponent }, // Default route to MainComponent
   { path: 'login', component: LoginComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },
 ];
