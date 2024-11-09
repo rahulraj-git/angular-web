@@ -113,7 +113,7 @@ export class AdminDashboardComponent {
           (response: any) => {
             console.log('Image bulk upload response:', response);
             this.uploadMessage = response;
-            this.snackBar.open('Successfully inserted data', 'Close', { duration: 3000 });
+            this.snackBar.open(response.message, 'Close', { duration: 3000 });
             this.resetFields();
           },
           (error: HttpErrorResponse) => {
