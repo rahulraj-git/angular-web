@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CategoriesComponent,
     ReviewSectionComponent,
     LoginComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

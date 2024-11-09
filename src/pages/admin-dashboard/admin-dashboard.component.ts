@@ -17,15 +17,35 @@ export class AdminDashboardComponent {
 
   uploadMessage: string | null = null;
   isLoading: boolean = false;
-
+  categories: any[] = [];
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
+  @ViewChild('categoryInput') categoryInput!: ElementRef;
   @ViewChild('categoryImageInput') categoryImageInput!: ElementRef;
   @ViewChild('imageFileInput') imageFileInput!: ElementRef;
   @ViewChild('csvFileInput') csvFileInput!: ElementRef;
-
+  @ViewChild('categoryDescriptionInput') categoryDescriptionInput!: ElementRef;
+  
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
-
+  ngOnInit() {
+    // Fetch categories when the component initializes
+    this.fetchCategories();
+  }
+  fetchCategories() {
+    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php').subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.categories = response.data;
+        } else {
+          this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000 });
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching categories:', error);
+        this.snackBar.open('Error fetching categories', 'Close', { duration: 3000 });
+      }
+    );
+  }
   onFileSelect(event: any, type: string) {
     const file = event.target.files[0];
     if (type === 'imageBulkUpload' && file.type !== 'application/zip') {
@@ -41,44 +61,60 @@ export class AdminDashboardComponent {
   isFileSelected(type: string): boolean {
     return !!this.selectedFiles[type];
   }
+
   onCatalogSubmit(name: string, code: string, description: string) {
     if (name && code && description && this.selectedFiles.catalogImage) {
-      console.log('Catalog data:', { name, code, description });
-      console.log('Catalog image file:', this.selectedFiles.catalogImage);
-      this.uploadMessage = 'Catalog submission completed.';
-      this.resetFields();  // Clear file inputs
+      const formData = new FormData();
+      formData.append('catalog_name', name);
+      formData.append('catalog_code', code);
+      formData.append('catalog_description', description);
+      formData.append('catalog_image', this.selectedFiles.catalogImage);
+
+      const headers = new HttpHeaders();
+
+      this.isLoading = true;
+
+      this.http.post('https://rigidjersey.com/backend-api/api/create_catalog.php', formData, { headers, responseType: 'text' })
+        .subscribe(
+          (response: string) => {
+            console.log('Catalog created successfully:', response);
+            this.uploadMessage = 'Catalog submission completed.';
+            this.snackBar.open('Catalog created successfully!', 'Close', { duration: 3000 });
+            this.resetFields();
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Error during catalog creation:', error);
+            this.uploadMessage = 'Error during catalog creation. Please try again.';
+            this.snackBar.open('Error creating catalog!', 'Close', { duration: 3000 });
+          }
+        ).add(() => {
+          this.isLoading = false;
+        });
     } else {
-      this.uploadMessage = 'Please complete all catalog fields.';
+      this.uploadMessage = 'Please provide all required fields: name, code, description, and image.';
     }
   }
 
   onImageBulkUploadSubmit(event: Event) {
-    event.preventDefault(); // Prevent page refresh
-    const categoryName = this.categoryNameInput.nativeElement.value;
+    event.preventDefault(); 
+    const categoryName = this.categoryInput.nativeElement.value;
 
     if (this.selectedFiles.imageBulkUpload && this.selectedFiles.dataCsvUpload && categoryName) {
       this.isLoading = true;
       const formData = new FormData();
-      formData.append('catalog_zip', this.selectedFiles.imageBulkUpload);
-      formData.append('catalog_category', categoryName);
-      formData.append('catalog_csv', this.selectedFiles.dataCsvUpload);
+      formData.append('zip_file', this.selectedFiles.imageBulkUpload);
+      formData.append('category_name', categoryName);
+      formData.append('csv_file', this.selectedFiles.dataCsvUpload);
 
       const headers = new HttpHeaders();
 
-      this.http.post('https://rigidjersey.com/backend-api/api/upload_catalogs.php', formData, { headers, responseType: 'text' })
+      this.http.post('https://rigidjersey.com/backend-api/api/upload_catalogs.php', formData)
         .subscribe(
-          (response: string) => {
+          (response: any) => {
             console.log('Image bulk upload response:', response);
             this.uploadMessage = response;
-            // Show a success message
-            this.snackBar.open('Successfully inserted data', 'Close', {
-              duration: 3000, // Adjust duration as needed
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: ['success-snackbar']
-            });
-
-            this.resetFields();  // Clear all input fields and file selections
+            this.snackBar.open('Successfully inserted data', 'Close', { duration: 3000 });
+            this.resetFields();
           },
           (error: HttpErrorResponse) => {
             console.error('Error during image bulk upload:', error);
@@ -92,6 +128,9 @@ export class AdminDashboardComponent {
     } else {
       this.uploadMessage = 'Please select all required files and provide a category name.';
     }
+
+
+    
   }
 
   private resetFields() {
@@ -101,60 +140,38 @@ export class AdminDashboardComponent {
       dataBulkUpload: null,
       catalogImage: null
     };
-
     this.categoryNameInput.nativeElement.value = '';
-    this.imageFileInput.nativeElement.value = '';
-    this.csvFileInput.nativeElement.value = '';
-    this.categoryNameInput.nativeElement.value = '';
-    this.categoryImageInput.nativeElement.value = ''; 
+    this.categoryDescriptionInput.nativeElement.value = '';
+    this.categoryImageInput.nativeElement.value = '';
   }
-  onAddCategorySubmit(name: string, description: string, image: File | null) {
+  onAddCategorySubmit(name: string, description: string, image: File | null, event: Event) {
+    event.preventDefault();  // Prevent form from refreshing the page
+    console.log('onAddCategorySubmit called');
     if (name && description && image) {
       const formData = new FormData();
       formData.append('category_name', name);
       formData.append('description', description);
       formData.append('image', image);
   
-      const headers = new HttpHeaders();
-  
+      console.log('Sending request to backend...');
       this.isLoading = true;
   
-      this.http.post('https://rigidjersey.com/backend-api/api/create_category.php', formData, { headers, responseType: 'text' })
-        .subscribe(
-          (response: string) => {
-            console.log('Category created successfully:', response);
-            this.uploadMessage = 'Category submitted successfully.';
-            
-            // Show a success message
-            this.snackBar.open('Category created successfully!', 'Close', {
-              duration: 3000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: ['success-snackbar']
-            });
-  
-            this.resetFields();  // Reset form fields
-          },
-          (error: HttpErrorResponse) => {
-            console.error('Error during category creation:', error);
-            this.uploadMessage = 'Error during category creation. Please try again.';
-            
-            // Show error message
-            this.snackBar.open('Error creating category!', 'Close', {
-              duration: 3000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: ['error-snackbar']
-            });
-          }
-        ).add(() => {
-          this.isLoading = false;
-        });
+      this.http.post('https://rigidjersey.com/backend-api/api/create_category.php', formData).subscribe(
+        response => {
+          console.log('Category added successfully:', response);
+          this.uploadMessage = 'Category added successfully!';
+          this.snackBar.open('Category added!', 'Close', { duration: 3000 });
+          this.resetFields();
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error during category addition:', error);
+          this.uploadMessage = 'Error adding category. Please try again.';
+        }
+      ).add(() => {
+        this.isLoading = false;
+      });
     } else {
-      this.uploadMessage = 'Please provide all required fields: name, description, and image.';
+      this.uploadMessage = 'Please provide all required fields: category name, description, and image.';
     }
   }
-
-
-
 }
