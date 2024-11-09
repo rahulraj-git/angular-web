@@ -68,3 +68,19 @@
   button:not(:disabled):hover {
     background-color: #e53935;
   }
+  .add-category-section {
+    margin-top: 20px;
+  }
+  
+  .add-category-section form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-category-section label {
+    margin-bottom: 10px;
+  }
+  
+  .add-category-section button {
+    margin-top: 15px;
+  }

@@ -1,21 +1,41 @@
 <div class="admin-dashboard-container">
   <h2 class="text-center">Admin Dashboard</h2>
 
-<!-- Image Bulk Upload Section -->
+<!-- Add Category Section -->
 <section class="upload-section">
-  <h3>Image Bulk Upload</h3>
-  <form (submit)="onImageBulkUploadSubmit($event)">
+  <h3>Add Category</h3>
+  <form (ngSubmit)="onAddCategorySubmit(categoryNameInput?.value || '', categoryDescriptionInput?.value || '', categoryImageInput?.files?.[0] || null)">
     <label>
       Category Name:
       <input type="text" #categoryNameInput required />
     </label>
-    <input type="file" #imageFileInput accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
-    <input type="file" #csvFileInput accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
-    <button type="submit" [disabled]="!isFileSelected('imageBulkUpload') || !isFileSelected('dataCsvUpload') || !categoryNameInput.value">
-      Upload Images
-    </button>
+    <label>
+      Description:
+      <textarea #categoryDescriptionInput required></textarea>
+    </label>
+    <label>
+      Category Image:
+      <input type="file" #categoryImageInput accept="image/*" required (change)="onFileSelect($event, 'categoryImage')" />
+    </label>
+    <button type="submit" [disabled]="!categoryNameInput.value || !categoryDescriptionInput.value || !isFileSelected('categoryImage')">Add Category</button>
   </form>
 </section>
+
+  <!-- Image Bulk Upload Section -->
+  <section class="upload-section">
+    <h3>Image Bulk Upload</h3>
+    <form (submit)="onImageBulkUploadSubmit($event)">
+      <label>
+        Category Name:
+        <input type="text" #categoryNameInput required />
+      </label>
+      <input type="file" #imageFileInput accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
+      <input type="file" #csvFileInput accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
+      <button type="submit" [disabled]="!isFileSelected('imageBulkUpload') || !isFileSelected('dataCsvUpload') || !categoryNameInput.value">
+        Upload Images
+      </button>
+    </form>
+  </section>
 
   <!-- Data Bulk Upload Section -->
   <!-- <section class="upload-section">

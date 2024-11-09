@@ -19,8 +19,10 @@ export class AdminDashboardComponent {
   isLoading: boolean = false;
 
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
+  @ViewChild('categoryImageInput') categoryImageInput!: ElementRef;
   @ViewChild('imageFileInput') imageFileInput!: ElementRef;
   @ViewChild('csvFileInput') csvFileInput!: ElementRef;
+
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -39,7 +41,6 @@ export class AdminDashboardComponent {
   isFileSelected(type: string): boolean {
     return !!this.selectedFiles[type];
   }
-
   onCatalogSubmit(name: string, code: string, description: string) {
     if (name && code && description && this.selectedFiles.catalogImage) {
       console.log('Catalog data:', { name, code, description });
@@ -104,5 +105,56 @@ export class AdminDashboardComponent {
     this.categoryNameInput.nativeElement.value = '';
     this.imageFileInput.nativeElement.value = '';
     this.csvFileInput.nativeElement.value = '';
+    this.categoryNameInput.nativeElement.value = '';
+    this.categoryImageInput.nativeElement.value = ''; 
   }
+  onAddCategorySubmit(name: string, description: string, image: File | null) {
+    if (name && description && image) {
+      const formData = new FormData();
+      formData.append('category_name', name);
+      formData.append('description', description);
+      formData.append('image', image);
+  
+      const headers = new HttpHeaders();
+  
+      this.isLoading = true;
+  
+      this.http.post('https://rigidjersey.com/backend-api/api/create_category.php', formData, { headers, responseType: 'text' })
+        .subscribe(
+          (response: string) => {
+            console.log('Category created successfully:', response);
+            this.uploadMessage = 'Category submitted successfully.';
+            
+            // Show a success message
+            this.snackBar.open('Category created successfully!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['success-snackbar']
+            });
+  
+            this.resetFields();  // Reset form fields
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Error during category creation:', error);
+            this.uploadMessage = 'Error during category creation. Please try again.';
+            
+            // Show error message
+            this.snackBar.open('Error creating category!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            });
+          }
+        ).add(() => {
+          this.isLoading = false;
+        });
+    } else {
+      this.uploadMessage = 'Please provide all required fields: name, description, and image.';
+    }
+  }
+
+
+
 }
