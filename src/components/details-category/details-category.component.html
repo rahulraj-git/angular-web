@@ -1,0 +1,25 @@
+<div class="category-details">
+    <h1>Category Details</h1>
+  
+    <!-- Check if category data is available -->
+    <div class="container-main" *ngIf="categoryData; else loading">
+      <div class="row">
+        <div *ngFor="let product of categoryData" class="col-md-3 col-sm-6 col-12 mb-4">
+          <!-- Card for each product -->
+          <div class="card">
+            <img class="card-img-top" [src]="convertImageUrl(product.image_url)" alt="{{ product.unique_code }}">
+            <div class="card-body">
+              <h5 class="card-title">Name 1</h5> <!-- Static name -->
+              <p class="card-text">Unique Code: {{ product.unique_code }}</p>
+              <a class="btn shop-now" (click)="navigateToProductDetails(product)">Check Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Loading template if data is not yet available -->
+    <ng-template #loading>
+      <p>Loading category details...</p>
+    </ng-template>
+  </div>

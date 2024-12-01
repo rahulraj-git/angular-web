@@ -5,6 +5,7 @@
     <div
       class="category-item"
       *ngFor="let category of categoryList"
+      (click)="onCategoryClick(category)"
     >
       <img
         [src]="convertImageUrl(category.image_url)"

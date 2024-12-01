@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboard.component';
 import { ServicesPageComponent } from 'src/components/services-page/services-page.component';
+import { DetailsCatalogComponent } from 'src/components/details-catalog/details-catalog.component';
+import { DetailsCategoryComponent } from 'src/components/details-category/details-category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { ServicesPageComponent } from 'src/components/services-page/services-pag
     LoginComponent,
     AdminDashboardComponent,
     ServicesPageComponent,
+    DetailsCatalogComponent,
+    DetailsCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ import { ServicesPageComponent } from 'src/components/services-page/services-pag
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

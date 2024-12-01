@@ -9,7 +9,7 @@
               [class.active]="i === 0"
             >
               <div class="row">
-                <div class="col" *ngFor="let product of chunk">
+                <div class="col-12 col-md-3" *ngFor="let product of chunk">
                   <img
                     [src]="convertImageUrl(product.image_url)"
                     [alt]="product.name"
@@ -18,8 +18,8 @@
                     (mouseleave)="resetImage()"
                   />
                   <h5>{{ product.name }}</h5>
-                  <p>{{ product.description }}</p>
-                  <a class="btn shop-now" href="#">Shop Now</a>
+                  <!-- <p>{{ product.description }}</p> -->
+                  <a class="btn shop-now" (click)="navigateToProductDetails(product)" >Shop Now</a>
                 </div>
               </div>
             </div>

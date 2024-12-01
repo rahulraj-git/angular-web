@@ -36,4 +36,10 @@ export class CategoriesComponent {
   convertImageUrl(relativeUrl: string): string {
     return `https://rigidjersey.com/backend-api/${relativeUrl.replace(/^(\.\.\/)+/, '')}`;
   }
+  
+  onCategoryClick(category: any) {
+
+    // Navigate to details-category page with category ID as a query parameter
+    this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
+  }
 }

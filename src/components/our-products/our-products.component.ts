@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,21 @@ import { Router } from '@angular/router';
 export class OurProductsComponent {
   productList: any[] = [];
   chunkedProductList: any[] = []; // For grouping products into rows
-  constructor(private http: HttpClient) {}
+  isMobile: boolean = false; // Flag to check if the screen is mobile
+
+  constructor(private http: HttpClient,private router: Router,) {}
 
   ngOnInit() {
+    this.checkScreenSize(); // Check initial screen size
     this.getProductList();
     this.getDetails();
+  }
+
+  // Listen to window resize events to handle responsive design
+  @HostListener('window:resize', [])
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768; // Check if the screen is mobile
+    this.updateChunking(); // Update chunking based on screen size
   }
 
   getProductList() {
@@ -22,7 +32,7 @@ export class OurProductsComponent {
       (response: any) => {
         if (response.success) {
           this.productList = response.data;
-          this.chunkedProductList = this.chunkArray(this.productList, 4); // Divide into chunks of 4
+          this.updateChunking(); // Adjust chunking after fetching the data
         } else {
           alert('Failed to fetch product list.');
         }
@@ -43,6 +53,12 @@ export class OurProductsComponent {
     return result;
   }
 
+  // Update chunking logic based on the screen size
+  updateChunking() {
+    const chunkSize = this.isMobile ? 1 : 4; // If mobile, set chunk size to 1, else 4
+    this.chunkedProductList = this.chunkArray(this.productList, chunkSize);
+  }
+
   // Optional: Method to adjust image on hover
   hoverImage(imageUrl: string) {
     console.log(`Hovered over image: ${imageUrl}`);
@@ -59,21 +75,24 @@ export class OurProductsComponent {
     const correctedUrl = imageUrl.replace(/\.\.\//g, '');
     return `${baseUrl}${correctedUrl}`;
   }
+
   getDetails() {
     this.http.get('https://rigidjersey.com/backend-api/api/get_catalog_details.php/?catalog_id=189').subscribe(
       (response: any) => {
-        debugger
         if (response.success) {
           this.productList = response.data;
+          this.updateChunking(); // Adjust chunking after fetching the details
         } else {
           alert('Failed to fetch product list.');
         }
       },
       (error) => {
-
         console.error('Error fetching product list:', error);
         alert('An error occurred. Please try again.');
       }
     );
+  }
+  navigateToProductDetails(product:any){
+    this.router.navigate(['/details-catalog'], { queryParams: { id: product.id } });
   }
 }
