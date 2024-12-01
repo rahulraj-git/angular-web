@@ -17,7 +17,7 @@
     font-family: Arial, sans-serif;
   }
   
-  .upload-section, .catalog-section {
+  .upload-section, .catalog-section,.download-section {
     // margin: 20px 0;
     // padding: 20px;
     // border-radius: 8px;
@@ -83,4 +83,15 @@
   
   .add-category-section button {
     margin-top: 15px;
+  }
+  ::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: red !important;
+    color: white !important;
+   
+  }
+  ::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
+    color: #f0f0f0 !important;
+  }
+  ::ng-deep .mdc-button .mdc-button__label{
+    color: #f0f0f0 !important;
   }

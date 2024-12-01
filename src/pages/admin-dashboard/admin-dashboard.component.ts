@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -37,12 +36,18 @@ export class AdminDashboardComponent {
         if (response.success) {
           this.categories = response.data;
         } else {
-          this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000 });
+          this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top', 
+            panelClass: ['custom-snack-bar'] });
         }
       },
       (error: HttpErrorResponse) => {
         console.error('Error fetching categories:', error);
-        this.snackBar.open('Error fetching categories', 'Close', { duration: 3000 });
+        this.snackBar.open('Error fetching categories', 'Close', { duration: 3000, // 3 seconds
+          horizontalPosition: 'center', // To center it horizontally
+          verticalPosition: 'top', 
+          panelClass: ['custom-snack-bar'] });
       }
     );
   }
@@ -79,13 +84,19 @@ export class AdminDashboardComponent {
           (response: string) => {
             console.log('Catalog created successfully:', response);
             this.uploadMessage = 'Catalog submission completed.';
-            this.snackBar.open('Catalog created successfully!', 'Close', { duration: 3000 });
+            this.snackBar.open('Catalog created successfully!', 'Close', { duration: 3000, // 3 seconds
+              horizontalPosition: 'center', // To center it horizontally
+              verticalPosition: 'top', 
+              panelClass: ['custom-snack-bar']});
             this.resetFields();
           },
           (error: HttpErrorResponse) => {
             console.error('Error during catalog creation:', error);
             this.uploadMessage = 'Error during catalog creation. Please try again.';
-            this.snackBar.open('Error creating catalog!', 'Close', { duration: 3000 });
+            this.snackBar.open('Error creating catalog!', 'Close', { duration: 3000, // 3 seconds
+              horizontalPosition: 'center', // To center it horizontally
+              verticalPosition: 'top', 
+              panelClass: ['custom-snack-bar'] });
           }
         ).add(() => {
           this.isLoading = false;
@@ -113,7 +124,10 @@ export class AdminDashboardComponent {
           (response: any) => {
             console.log('Image bulk upload response:', response);
             this.uploadMessage = response;
-            this.snackBar.open(response.message, 'Close', { duration: 3000 });
+            this.snackBar.open(response.message, 'Close', { duration: 3000, // 3 seconds
+              horizontalPosition: 'center', // To center it horizontally
+              verticalPosition: 'top', 
+              panelClass: ['custom-snack-bar'] });
             this.resetFields();
           },
           (error: HttpErrorResponse) => {
@@ -140,9 +154,11 @@ export class AdminDashboardComponent {
       dataBulkUpload: null,
       catalogImage: null
     };
-    this.categoryNameInput.nativeElement.value = '';
-    this.categoryDescriptionInput.nativeElement.value = '';
-    this.categoryImageInput.nativeElement.value = '';
+    if (this.categoryNameInput) this.categoryNameInput.nativeElement.value = '';
+    if (this.categoryDescriptionInput) this.categoryDescriptionInput.nativeElement.value = '';
+    if (this.categoryImageInput) this.categoryImageInput.nativeElement.value = '';
+    if (this.imageFileInput) this.imageFileInput.nativeElement.value = '';
+    if (this.csvFileInput) this.csvFileInput.nativeElement.value = '';
   }
   onAddCategorySubmit(name: string, description: string, image: File | null, event: Event) {
     event.preventDefault();  // Prevent form from refreshing the page
@@ -160,7 +176,10 @@ export class AdminDashboardComponent {
         response => {
           console.log('Category added successfully:', response);
           this.uploadMessage = 'Category added successfully!';
-          this.snackBar.open('Category added!', 'Close', { duration: 3000 });
+          this.snackBar.open('Category added!', 'Close', { duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top', 
+            panelClass: ['custom-snack-bar'] });
           this.resetFields();
         },
         (error: HttpErrorResponse) => {
@@ -174,4 +193,31 @@ export class AdminDashboardComponent {
       this.uploadMessage = 'Please provide all required fields: category name, description, and image.';
     }
   }
+  // Method to trigger the download of subscriber data
+  downloadSubscribers() {
+    const url = 'https://rigidjersey.com/backend-api/api/user_data_download.php';
+
+    // Make HTTP request to download the file
+    this.http.get(url, { responseType: 'blob' }).subscribe(
+      (data: Blob) => {
+        // Create a temporary URL for the Blob object
+        const fileURL = URL.createObjectURL(data);
+
+        // Create a temporary <a> element to trigger the download
+        const a = document.createElement('a');
+        a.href = fileURL;
+        a.download = 'subscribers_data.csv'; // Specify the file name for download
+        a.click(); // Trigger the download
+
+        // Clean up and revoke the Blob URL
+        URL.revokeObjectURL(fileURL);
+      },
+      (error) => {
+        console.error('Error downloading the file:', error);
+      }
+    );
+  }
 }
+
+
+
