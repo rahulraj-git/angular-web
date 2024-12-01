@@ -12,9 +12,44 @@
         <!-- Newsletter Subscription -->
         <div class="col-lg-4 col-md-6 mb-4">
           <h5>Subscribe to our Newsletter</h5>
-          <form class="newsletter-form">
-            <input type="email" class="form-control" placeholder="Enter your email" required>
-            <button type="submit" class="btn btn-subscribe">Subscribe</button>
+          <form class="newsletter-form" (ngSubmit)="subscribe()">
+            <!-- Name Input -->
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Enter your name" 
+              [(ngModel)]="name" 
+              name="name" 
+              required 
+              #nameInput="ngModel" 
+            />
+            <div *ngIf="nameInput.invalid && nameInput.touched" class="error-message">
+              <small *ngIf="nameInput.errors?.['required']">Name is required.</small>
+            </div>
+        
+            <!-- Email or Mobile Number Input -->
+            <input 
+              type="email" 
+              class="form-control" 
+              placeholder="email or mobile " 
+              [(ngModel)]="email" 
+              name="email" 
+              required 
+              #emailInput="ngModel" 
+            />
+            <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+              <small *ngIf="emailInput.errors?.['required']">Email or mobile number is required.</small>
+              <small *ngIf="emailInput.errors?.['email']">Please enter a valid email address.</small>
+            </div>
+        
+            <!-- Subscribe Button -->
+            <button 
+              type="submit" 
+              class="btn btn-subscribe" 
+              [disabled]="nameInput.invalid || emailInput.invalid"
+            >
+              Subscribe
+            </button>
           </form>
         </div>
   

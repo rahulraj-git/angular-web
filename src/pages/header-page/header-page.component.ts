@@ -7,15 +7,14 @@ import { Component } from '@angular/core';
 })
 export class HeaderPageComponent {
 ngOnInit(): void {
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.header-container');
+  document.addEventListener("DOMContentLoaded", function () {
+    const header = document.querySelector(".header-container");
     if (header) {
-        // Add the fade-in class after a slight delay to make the effect more noticeable
-        setTimeout(() => {
-            header.classList.add('fade-in');
-        }, 500); // 100ms delay for smoother animation
+      setTimeout(() => {
+        header.classList.add("loaded");
+      }, 100); // Delay to ensure smooth transition
     }
-});
+  });
 }
 
 

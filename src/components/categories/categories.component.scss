@@ -1,7 +1,7 @@
 .categories-section {
     padding: 40px 20px;
     text-align: center;
-    background-color: #f8f9fa;
+    background-color: #ffffffdb;
   }
   
   .section-title {
@@ -20,6 +20,7 @@
   }
   
   .category-item {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
@@ -31,7 +32,7 @@
   
     &:hover {
       transform: scale(1.05); /* Slight zoom on hover */
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 16px rgba(242, 27, 27, 0.2);
     }
   }
   
@@ -64,7 +65,7 @@
   
   /* Hover effect to zoom in image */
   .category-item:hover .category-image {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   
   /* Responsive styles */
