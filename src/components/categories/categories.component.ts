@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -9,37 +10,53 @@ import { HttpClient } from '@angular/common/http';
 export class CategoriesComponent {
   username: string = '';
   password: string = '';
-  categoryList: any;
-  constructor(private router: Router, private http: HttpClient){
+  categoryList: any[] = [];
+  displayedCategories: any[] = [];  // Array to hold categories to display initially
+  isViewAll: boolean = false;  // Flag to toggle between showing 6 or all categories
 
-  }
+  constructor(private router: Router, private http: HttpClient) {}
+
   ngOnInit() {
     this.getCategory();
   }
-  getCategory() {
 
+  getCategory() {
     this.http.get('https://rigidjersey.com/backend-api/api/get_category.php').subscribe((response: any) => {
       if (response.success) {
-        this.categoryList=response.data
-        // Redirect to the admin dashboard if login is successful
-        // this.router.navigate(['/admin-dashboard']);
+        this.categoryList = response.data;
+        this.limitCategories();  // Limit categories to 6 initially
       } else {
-        // Handle unsuccessful login here, like showing an error message
-        alert('list category failed.');
+        alert('Failed to load categories.');
       }
     }, error => {
-      // Handle HTTP errors
-      console.error('Login error:', error);
+      console.error('Error fetching categories:', error);
       alert('An error occurred. Please try again.');
     });
   }
+
+  // Limit the categories displayed initially (only show 6)
+  limitCategories() {
+    this.displayedCategories = this.categoryList.slice(0, 6);
+  }
+
+  // Show all categories when the "View All" button is clicked
+  showAllCategories() {
+    this.displayedCategories = this.categoryList;
+    this.isViewAll = true;  // Change the flag to indicate all categories are shown
+  }
+   // Hide all categories and show only the first 6
+   hideCategories() {
+    this.limitCategories();
+    this.isViewAll = false;  // Change the flag to indicate categories are hidden
+  }
+
+  // Convert image URL to the full URL
   convertImageUrl(relativeUrl: string): string {
     return `https://rigidjersey.com/backend-api/${relativeUrl.replace(/^(\.\.\/)+/, '')}`;
   }
-  
-  onCategoryClick(category: any) {
 
-    // Navigate to details-category page with category ID as a query parameter
+  // Navigate to the category details page
+  onCategoryClick(category: any) {
     this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
   }
 }

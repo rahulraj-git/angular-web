@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common'; 
 
 @Component({
   selector: 'app-details-category',
@@ -14,7 +15,8 @@ export class DetailsCategoryComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -50,5 +52,8 @@ export class DetailsCategoryComponent implements OnInit {
   }
   navigateToProductDetails(product:any){
     this.router.navigate(['/details-catalog'], { queryParams: { id: product.id } });
+  }
+  goBack() {
+    this.location.back(); // This will navigate back in the browser history
   }
 }

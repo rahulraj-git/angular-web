@@ -1,10 +1,10 @@
 <section class="categories-section">
   <h2 class="section-title">Categories</h2>
   <div class="categories-grid">
-    <!-- Use *ngFor to loop through the categoryList -->
+    <!-- Loop through the categoryList and limit to 6 initially -->
     <div
       class="category-item"
-      *ngFor="let category of categoryList"
+      *ngFor="let category of displayedCategories"
       (click)="onCategoryClick(category)"
     >
       <img
@@ -15,5 +15,13 @@
       <h3 class="category-name">{{ category.name }}</h3>
       <p class="category-description">{{ category.description }}</p>
     </div>
+  </div>
+
+   <!-- View All button if there are more than 6 categories -->
+   <div *ngIf="categoryList.length > 6 && !isViewAll" class="view-all-button-container">
+    <button (click)="showAllCategories()" class="view-all-button">View All</button>
+  </div>
+  <div *ngIf="isViewAll" class="view-all-button-container">
+    <button (click)="hideCategories()" class="view-all-button">Hide</button>
   </div>
 </section>
