@@ -95,3 +95,16 @@
       padding: 8px 16px;
     }
   }
+  .catalog-info .catalog-item {
+    margin-bottom: 10px; /* Optional: Controls the space between each item */
+  }
+  
+  .catalog-info .catalog-item h3 {
+    margin: 0; /* Remove the default margin of the h3 tag */
+    padding-bottom: 5px; /* Optional: Slight space below the heading */
+  }
+  
+  .catalog-info .catalog-item p {
+    margin: 0; /* Remove the default margin of the p tag */
+    padding: 0; /* Optional: Remove any padding */
+  }

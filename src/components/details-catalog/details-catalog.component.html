@@ -1,7 +1,6 @@
 <div class="catalog-details-container">
     <div class="catalog-header">
       <h1>{{ productDetails?.name }}</h1>
-      <p class="catalog-description">{{ productDetails?.description }}</p>
     </div>
   
     <div class="catalog-image-container">
@@ -9,13 +8,12 @@
     </div>
   
     <div class="catalog-info">
+     
       <div class="catalog-item">
-        <h3>Unique Code:</h3>
-        <p>{{ productDetails?.unique_code }}</p>
+        <h3><b>Description:</b><span> {{productDetails?.description}}</span> </h3>
       </div>
       <div class="catalog-item">
-        <h3>Category ID:</h3>
-        <p>{{ productDetails?.category_id }}</p>
+        <h3><b>Unique Code:</b><span> {{ productDetails?.unique_code }}</span></h3>
       </div>
     </div>
   

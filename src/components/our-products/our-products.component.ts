@@ -32,7 +32,6 @@ export class OurProductsComponent {
       (response: any) => {
         if (response.success) {
           this.productList = response.catalogs;
-          debugger
           this.updateChunking(); // Adjust chunking after fetching the data
         } else {
           alert('Failed to fetch product list.');
@@ -56,7 +55,6 @@ export class OurProductsComponent {
 
   // Update chunking logic based on the screen size
   updateChunking() {
-    debugger
     const chunkSize = this.isMobile ? 1 : 4; // If mobile, set chunk size to 1, else 4
     this.chunkedProductList = this.chunkArray(this.productList, chunkSize);
   }

@@ -67,7 +67,7 @@ export class ServicesPageComponent {
     observer.observe(section!); // Start observing the section
   }
   onLearnMoreClick(category: any) {
-      const phoneNumber = '8073877920'; // Replace with your WhatsApp number
+      const phoneNumber = '+918073877920'; // Replace with your WhatsApp number
       const message = `Hello! I would like to know more about ${category.name} services.`; // Customize your default message
       const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       

@@ -238,8 +238,6 @@ export class AdminDashboardComponent {
   
       this.http.post(apiUrl, payload).subscribe({
         next: (response: any) => {
-          // console.log(, response);
-          debugger
         this.snackBar.open(response.error?response.error:'Priority updated successfully', 'Close', { duration: 3000, // 3 seconds
           horizontalPosition: 'center', // To center it horizontally
           verticalPosition: 'top',
@@ -249,7 +247,6 @@ export class AdminDashboardComponent {
         },
         error: (error) => {
           console.error('API Error:', error);
-          debugger
           this.snackBar.open(error.error.error, 'Close', { duration: 3000, // 3 seconds
             horizontalPosition: 'center', // To center it horizontally
             verticalPosition: 'top',
