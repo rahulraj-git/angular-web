@@ -1,0 +1,18 @@
+<section class="categories-section">
+    <h2 class="section-title">Categories</h2>
+    <div class="categories-grid">
+      <!-- Use *ngFor to loop through the categoryList -->
+      <div
+        class="category-item"
+        *ngFor="let category of categoryList"
+      >
+        <img
+          [src]="convertImageUrl(category.image_url)"
+          [alt]="category.name"
+          class="category-image"
+        />
+        <h3 class="category-name">{{ category.name }}</h3>
+        <p class="category-description">{{ category.description }}</p>
+      </div>
+    </div>
+  </section>

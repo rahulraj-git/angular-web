@@ -62,11 +62,11 @@
     border-bottom: 2px solid rgb(249 244 244);
   }
   /* Initial hidden state for header */
-.header-container {
-  opacity: 0;
-  transform: translateY(-20px); /* Slide up effect */
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
+// .header-container {
+//   opacity: 0;
+//   transform: translateY(-20px); /* Slide up effect */
+//   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+// }
 
 /* Fade-in and slide-in animation */
 .header-container.fade-in {

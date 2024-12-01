@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  selector: 'app-services-page',
+  templateUrl: './services-page.component.html',
+  styleUrls: ['./services-page.component.scss']
 })
-export class CategoriesComponent {
+export class ServicesPageComponent {
   username: string = '';
   password: string = '';
   categoryList: any;

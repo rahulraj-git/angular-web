@@ -78,7 +78,7 @@
   &:hover {
     animation: pulseGlow 1s ease-in-out infinite; /* Glow effect on hover */
     transform: scale(1.05); /* Slight scale-up on hover */
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); /* Red glow shadow on hover */
+    // box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); /* Red glow shadow on hover */
   }
 }
 
@@ -144,22 +144,28 @@
 /* Keyframes for pulse and glow */
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    // box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
   }
   50% {
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* Increase glow intensity at midpoint */
+    // box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* Increase glow intensity at midpoint */
   }
 }
 /* Keyframes for rotation and scaling */
 @keyframes rotateAndScale {
   0% {
-    transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(.5);
+  }
+  25% {
+    transform: rotate(45deg) scale(1); /* Rotate halfway and scale up */
   }
   50% {
-    transform: rotate(180deg) scale(1.1); /* Rotate halfway and scale up */
+    transform: rotate(0deg) scale(.5); /* Rotate halfway and scale up */
+  }
+  75% {
+    transform: rotate(-45deg) scale(1); /* Rotate halfway and scale up */
   }
   100% {
-    transform: rotate(360deg) scale(1); /* Complete rotation and return to normal scale */
+    transform: rotate(0deg) scale(.5); /* Complete rotation and return to normal scale */
   }
 }
 /* Media query for additional styling adjustments */
