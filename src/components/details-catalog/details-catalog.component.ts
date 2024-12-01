@@ -25,7 +25,7 @@ export class DetailsCatalogComponent implements OnInit {
   }
 
   fetchProductDetails(catalogId: string): void {
-    const apiUrl = `https://rigidjersey.com/backend-api/api/get_catalog_details/?catalog_id=${catalogId}`;
+    const apiUrl = `https://rigidjersey.com/backend-api/api/get_catalog_details.php/?catalog_id=${catalogId}`;
 
     this.http.get(apiUrl).subscribe(
       (response: any) => {

@@ -17,14 +17,14 @@ export class OurProductsComponent {
   ngOnInit() {
     this.checkScreenSize(); // Check initial screen size
     this.getProductList();
-    this.getDetails();
+    // this.getDetails();
   }
 
   // Listen to window resize events to handle responsive design
   @HostListener('window:resize', [])
   checkScreenSize() {
     this.isMobile = window.innerWidth <= 768; // Check if the screen is mobile
-    this.updateChunking(); // Update chunking based on screen size
+   // Update chunking based on screen size
   }
 
   getProductList() {
@@ -32,6 +32,7 @@ export class OurProductsComponent {
       (response: any) => {
         if (response.success) {
           this.productList = response.data;
+          debugger
           this.updateChunking(); // Adjust chunking after fetching the data
         } else {
           alert('Failed to fetch product list.');
@@ -55,6 +56,7 @@ export class OurProductsComponent {
 
   // Update chunking logic based on the screen size
   updateChunking() {
+    debugger
     const chunkSize = this.isMobile ? 1 : 4; // If mobile, set chunk size to 1, else 4
     this.chunkedProductList = this.chunkArray(this.productList, chunkSize);
   }
@@ -76,22 +78,22 @@ export class OurProductsComponent {
     return `${baseUrl}${correctedUrl}`;
   }
 
-  getDetails() {
-    this.http.get('https://rigidjersey.com/backend-api/api/get_catalog_details.php/?catalog_id=189').subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.productList = response.data;
-          this.updateChunking(); // Adjust chunking after fetching the details
-        } else {
-          alert('Failed to fetch product list.');
-        }
-      },
-      (error) => {
-        console.error('Error fetching product list:', error);
-        alert('An error occurred. Please try again.');
-      }
-    );
-  }
+  // getDetails() {
+  //   this.http.get('https://rigidjersey.com/backend-api/api/get_catalog_details.php/?catalog_id=189').subscribe(
+  //     (response: any) => {
+  //       if (response.success) {
+  //         this.productList = response.data;
+  //         this.updateChunking(); // Adjust chunking after fetching the details
+  //       } else {
+  //         alert('Failed to fetch product list.');
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching product list:', error);
+  //       alert('An error occurred. Please try again.');
+  //     }
+  //   );
+  // }
   navigateToProductDetails(product:any){
     this.router.navigate(['/details-catalog'], { queryParams: { id: product.id } });
   }

@@ -13,7 +13,8 @@ export class AdminDashboardComponent {
     dataBulkUpload: null as File | null,
     catalogImage: null as File | null
   };
-
+  priorityValue: string = ''; // Holds the priority input value
+  uniqueCodeValue: string = '';
   uploadMessage: string | null = null;
   isLoading: boolean = false;
   categories: any[] = [];
@@ -217,6 +218,36 @@ export class AdminDashboardComponent {
       }
     );
   }
+    // Form submission handler
+    onPrioritySubmit(event: Event): void {
+      event.preventDefault(); // Prevent the default form behavior
+  
+      const payload = {
+        unique_code: this.uniqueCodeValue,
+        priority: parseInt(this.priorityValue, 10),
+      };
+  
+      // Call the API
+      this.submitPriorityUpdate(payload);
+    }
+  
+    // API call to submit priority update
+    submitPriorityUpdate(payload: { unique_code: string; priority: number }): void {
+      const apiUrl = 'https://rigidjersey.com/backend-api/api/create_catalog_priority.php';
+  
+      this.http.post(apiUrl, payload).subscribe({
+        next: (response) => {
+          console.log('API Response:', response);
+          alert('Priority updated successfully!');
+          this.priorityValue = '';
+          this.uniqueCodeValue = '';
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          alert('Failed to update priority. Please try again.');
+        },
+      });
+    }
 }
 
 

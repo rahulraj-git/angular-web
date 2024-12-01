@@ -3,6 +3,7 @@
   gap: 20px;
   padding: 40px;
   background-color: #f8f9fa;
+  flex-wrap: wrap; /* Allow wrapping of sections on mobile */
 }
 
 /* Address Section */
@@ -61,6 +62,7 @@
     }
   }
 }
+
 /* Logo Section */
 .logo-section {
   flex: 1;
@@ -78,10 +80,8 @@
   &:hover {
     animation: pulseGlow 1s ease-in-out infinite; /* Glow effect on hover */
     transform: scale(1.05); /* Slight scale-up on hover */
-    // box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); /* Red glow shadow on hover */
   }
 }
-
 
 /* Map Section */
 .map-wrapper {
@@ -114,19 +114,11 @@
   height: auto;
   transform-origin: center;
   animation: zoomInOut 5s ease-in-out infinite;
-  /* Add this line to control the animation state based on hover */
   animation-play-state: running; /* Start with running state */
 }
 
 .map-container:hover img {
   animation-play-state: paused; /* Pause the image animation when hovering over the container */
-}
-
-.map-container img {
-  width: 100%;
-  height: auto;
-  transform-origin: center;
-  animation: zoomInOut 5s ease-in-out infinite;
 }
 
 @keyframes zoomInOut {
@@ -144,12 +136,13 @@
 /* Keyframes for pulse and glow */
 @keyframes pulseGlow {
   0%, 100% {
-    // box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
   }
   50% {
-    // box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* Increase glow intensity at midpoint */
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* Increase glow intensity at midpoint */
   }
 }
+
 /* Keyframes for rotation and scaling */
 @keyframes rotateAndScale {
   0% {
@@ -168,18 +161,33 @@
     transform: rotate(0deg) scale(.5); /* Complete rotation and return to normal scale */
   }
 }
-/* Media query for additional styling adjustments */
+
+/* Media query for mobile screens */
 @media (max-width: 768px) {
-  .address-section {
-    padding: 15px;
-    h3 {
-      font-size: 1.3rem;
-    }
-    p {
-      font-size: 0.9rem;
-    }
+  .map-section-wrapper {
+    flex-direction: column;  /* Stack the sections vertically */
+    align-items: center;
   }
+
+  .address-section, .logo-section, .map-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Disable animations for mobile */
   .company-logo {
-    width: 150px; /* Adjust logo size for smaller screens */
+    animation: none;  /* Remove rotation and scaling animation */
+  }
+
+  .map-container {
+    transform: none;  /* Remove map container scaling effect */
+  }
+
+  .map-container img {
+    animation: none;  /* Remove zoom animation */
+  }
+
+  .map-container:hover img {
+    animation-play-state: running; /* Keep the animation paused state */
   }
 }

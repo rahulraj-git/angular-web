@@ -47,7 +47,7 @@
 </section>
 
   <!-- Single Catalog Submission Section -->
-  <section class="catalog-section">
+  <!-- <section class="catalog-section">
     <h3>Single Catalog Submission</h3>
     <form (ngSubmit)="onCatalogSubmit(nameInput.value, codeInput.value, descriptionInput.value)">
       <label>
@@ -67,6 +67,24 @@
         <input type="file" accept="image/*" (change)="onFileSelect($event, 'catalogImage')" />
       </label>
       <button type="submit" [disabled]="!isFileSelected('catalogImage')">Submit Catalog</button>
+    </form>
+  </section> -->
+
+  <!-- priority section -->
+  <section class="upload-section">
+    <h3>Priority Update Section</h3>
+    <form (submit)="onPrioritySubmit($event)">
+      <div>
+        <label for="priority">Priority value (higher value means higher priority):</label>
+        <input type="number" id="priority" [(ngModel)]="priorityValue" name="priority" required />
+      </div>
+      <div>
+        <label for="uniqueCode">Unique Code:</label>
+        <input type="text" id="uniqueCode" [(ngModel)]="uniqueCodeValue" name="uniqueCode" required />
+      </div>
+      <button type="submit" [disabled]="!uniqueCodeValue || !priorityValue">
+        Upload Images
+      </button>
     </form>
   </section>
 </div>
