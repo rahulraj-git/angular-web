@@ -9,30 +9,45 @@ import { HttpClient } from '@angular/common/http';
 export class ServicesPageComponent {
   username: string = '';
   password: string = '';
-  categoryList: any;
+  categoryList = [
+    {
+      id: 1,
+      name: 'Football',
+      description: 'Experience the thrill of the world’s most popular sport.',
+      image_url: 'https://rigidjersey.com/backend-api/uploads/category/catdata.jpg'
+    },
+    {
+      id: 2,
+      name: 'Basketball',
+      description: 'Reach new heights with the dynamic game of basketball.',
+      image_url: 'https://rigidjersey.com/backend-api/uploads/category/catdata.jpg'
+    },
+    {
+      id: 3,
+      name: 'Tennis',
+      description: 'Feel the power of a smashing ace in tennis.',
+      image_url: 'https://rigidjersey.com/backend-api/uploads/category/catdata.jpg'
+    },
+    {
+      id: 4,
+      name: 'Swimming',
+      description: 'Dive into the refreshing world of competitive swimming.',
+      image_url: 'https://rigidjersey.com/backend-api/uploads/category/catdata.jpg'
+    },
+    {
+      id: 5,
+      name: 'Cricket',
+      description: 'Hit boundaries with the gentleman’s game of cricket.',
+      image_url: 'https://rigidjersey.com/backend-api/uploads/category/catdata.jpg'
+    }
+  ];
   constructor(private router: Router, private http: HttpClient){
 
   }
   ngOnInit() {
-    this.getCategory();
+    // this.getCategory();
   }
-  getCategory() {
 
-    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php').subscribe((response: any) => {
-      if (response.success) {
-        this.categoryList=response.data
-        // Redirect to the admin dashboard if login is successful
-        // this.router.navigate(['/admin-dashboard']);
-      } else {
-        // Handle unsuccessful login here, like showing an error message
-        alert('list category failed.');
-      }
-    }, error => {
-      // Handle HTTP errors
-      console.error('Login error:', error);
-      alert('An error occurred. Please try again.');
-    });
-  }
   convertImageUrl(relativeUrl: string): string {
     return `https://rigidjersey.com/backend-api/${relativeUrl.replace(/^(\.\.\/)+/, '')}`;
   }
