@@ -1,6 +1,6 @@
 <div class="category-details">
     <button class="back-btn" (click)="goBack()">&#8592; Back</button>
-    <h1>Category Details</h1>
+    <h1>{{ categoryName }}</h1>
   
     <!-- Check if category data is available -->
     <div class="container-main" *ngIf="categoryData; else loading">

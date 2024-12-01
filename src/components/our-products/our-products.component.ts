@@ -31,7 +31,7 @@ export class OurProductsComponent {
     this.http.get('https://rigidjersey.com/backend-api/api/random_16_product.php').subscribe(
       (response: any) => {
         if (response.success) {
-          this.productList = response.data;
+          this.productList = response.catalogs;
           debugger
           this.updateChunking(); // Adjust chunking after fetching the data
         } else {

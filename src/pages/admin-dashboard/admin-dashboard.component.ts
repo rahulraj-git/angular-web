@@ -13,7 +13,7 @@ export class AdminDashboardComponent {
     dataBulkUpload: null as File | null,
     catalogImage: null as File | null
   };
-  priorityValue: string = ''; // Holds the priority input value
+  priorityValue: number | null = null; // Holds the priority input value
   uniqueCodeValue: string = '';
   uploadMessage: string | null = null;
   isLoading: boolean = false;
@@ -181,6 +181,7 @@ export class AdminDashboardComponent {
             horizontalPosition: 'center', // To center it horizontally
             verticalPosition: 'top', 
             panelClass: ['custom-snack-bar'] });
+            this.fetchCategories();
           this.resetFields();
         },
         (error: HttpErrorResponse) => {
@@ -224,7 +225,7 @@ export class AdminDashboardComponent {
   
       const payload = {
         unique_code: this.uniqueCodeValue,
-        priority: parseInt(this.priorityValue, 10),
+        priority: this.priorityValue,
       };
   
       // Call the API
@@ -232,19 +233,27 @@ export class AdminDashboardComponent {
     }
   
     // API call to submit priority update
-    submitPriorityUpdate(payload: { unique_code: string; priority: number }): void {
+    submitPriorityUpdate(payload: { unique_code: string; priority: any }): void {
       const apiUrl = 'https://rigidjersey.com/backend-api/api/create_catalog_priority.php';
   
       this.http.post(apiUrl, payload).subscribe({
-        next: (response) => {
-          console.log('API Response:', response);
-          alert('Priority updated successfully!');
-          this.priorityValue = '';
+        next: (response: any) => {
+          // console.log(, response);
+          debugger
+        this.snackBar.open(response.error?response.error:'Priority updated successfully', 'Close', { duration: 3000, // 3 seconds
+          horizontalPosition: 'center', // To center it horizontally
+          verticalPosition: 'top',
+          panelClass: ['custom-snack-bar'] });
+          this.priorityValue = null;
           this.uniqueCodeValue = '';
         },
         error: (error) => {
           console.error('API Error:', error);
-          alert('Failed to update priority. Please try again.');
+          debugger
+          this.snackBar.open(error.error.error, 'Close', { duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar'] });
         },
       });
     }

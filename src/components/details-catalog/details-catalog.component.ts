@@ -9,17 +9,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DetailsCatalogComponent implements OnInit {
   catalogId: string | null = null;
-  productDetails: any = null; // Store product details here
+  productDetails: any = null;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Get the catalog_id from query parameters
     this.route.queryParams.subscribe(params => {
-      this.catalogId = params['id']; // Get the 'id' from the query parameter
+      this.catalogId = params['id'];
 
       if (this.catalogId) {
-        this.fetchProductDetails(this.catalogId); // Fetch product details if id exists
+        this.fetchProductDetails(this.catalogId);
       }
     });
   }
@@ -29,8 +28,6 @@ export class DetailsCatalogComponent implements OnInit {
 
     this.http.get(apiUrl).subscribe(
       (response: any) => {
-        debugger
-        // Assuming response contains the product details in 'data'
         if (response.success && response.data) {
           this.productDetails = response.data;
         }
@@ -39,5 +36,14 @@ export class DetailsCatalogComponent implements OnInit {
         console.error('Error fetching product details', error);
       }
     );
+  }
+
+  onEnquireNow(): void {
+    // You can add the logic for triggering an enquiry, e.g., opening a contact form
+    alert('Enquiry has been sent!');
+  }
+  convertImageUrl(imagePath: string): string {
+    const baseUrl1 = 'https://rigidjersey.com/backend-api';
+    return baseUrl1 + imagePath.replace('..', ''); // Adjust the relative path to an absolute URL
   }
 }

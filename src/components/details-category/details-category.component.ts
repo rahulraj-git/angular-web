@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 export class DetailsCategoryComponent implements OnInit {
   categoryId: string | null = null;
   categoryData: any = null; // Store the response data from the API
+  categoryName: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,6 +37,7 @@ export class DetailsCategoryComponent implements OnInit {
     this.http.get(url).subscribe(
       (response: any) => {
         if (response.success) {
+          this.categoryName=response.parent_category.name
           this.categoryData = response.data; // Store the fetched data
         } else {
           console.error('Failed to fetch category data');

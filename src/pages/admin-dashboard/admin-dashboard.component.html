@@ -1,14 +1,19 @@
 <div class="admin-dashboard-container">
   <h2 class="text-center">Admin Dashboard</h2>
 <!-- Subscriber download -->
-<section class="download-section">
-  <button (click)="downloadSubscribers()" type="button">
-    Download Subscribers List
-  </button>
-</section>
+
   <!-- Add Category Section -->
   <section class="upload-section">
-    <h3>Add Category</h3>
+    <div class="d-flex justify-content-between">
+      <div>
+        <h3>Add Category</h3>
+      </div>
+      <div class="download-container">
+        <h3 (click)="downloadSubscribers()" class="download-text">Subscriber Download 📥</h3>
+      </div>
+    </div>
+   
+    
     <form >
       <label>
         Category Name:
@@ -76,14 +81,14 @@
     <form (submit)="onPrioritySubmit($event)">
       <div>
         <label for="priority">Priority value (higher value means higher priority):</label>
-        <input type="number" id="priority" [(ngModel)]="priorityValue" name="priority" required />
+        <input type="number" min="-1" id="priority" [(ngModel)]="priorityValue" name="priority" required />
       </div>
       <div>
         <label for="uniqueCode">Unique Code:</label>
         <input type="text" id="uniqueCode" [(ngModel)]="uniqueCodeValue" name="uniqueCode" required />
       </div>
-      <button type="submit" [disabled]="!uniqueCodeValue || !priorityValue">
-        Upload Images
+      <button type="submit" [disabled]="!uniqueCodeValue || priorityValue === null || priorityValue < 0">
+        Update Priority
       </button>
     </form>
   </section>

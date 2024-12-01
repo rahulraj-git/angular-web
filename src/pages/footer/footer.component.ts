@@ -62,7 +62,10 @@ export class FooterComponent {
           }
         );
     } else {
-      console.log('Please fill out both fields correctly');
+      this.snackBar.open('Please fill out both fields correctly', 'Close', {duration: 3000, // 3 seconds
+        horizontalPosition: 'center', // To center it horizontally
+        verticalPosition: 'top', 
+        panelClass: ['custom-snack-bar']});
     }
   }
 }
