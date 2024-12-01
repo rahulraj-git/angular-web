@@ -51,4 +51,33 @@ export class ServicesPageComponent {
   convertImageUrl(relativeUrl: string): string {
     return `https://rigidjersey.com/backend-api/${relativeUrl.replace(/^(\.\.\/)+/, '')}`;
   }
+  ngAfterViewInit() {
+    this.observeSectionVisibility();
+  }
+
+  observeSectionVisibility() {
+    const section = document.querySelector('.categories-section');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          section?.classList.add('visible'); // Add visible class to show the section
+        } else {
+          section?.classList.remove('visible'); // Remove it if not visible
+        }
+      });
+    }, {
+      threshold: 0.5 // Trigger when 50% of the section is visible
+    });
+
+    observer.observe(section!); // Start observing the section
+  }
+  onLearnMoreClick(category: any) {
+      const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+      const message = `Hello! I would like to know more about ${category.name} services.`; // Customize your default message
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      
+      window.open(url, '_blank');
+    }
+  
 }

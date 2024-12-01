@@ -15,7 +15,7 @@
         </div>
         <h3 class="category-name">{{ category.name }}</h3>
         <p class="category-description">{{ category.description }}</p>
-        <button class="category-button">Learn More</button>
+        <button (click)="onLearnMoreClick(category)" class="category-button">Learn More</button>
       </div>
     </div>
   </section>
