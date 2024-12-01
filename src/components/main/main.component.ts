@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
   openWhatsAppChat() {
-    const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+    const phoneNumber = '8073877920'; // Replace with your WhatsApp number
     const message = 'Hello! I would like to know more about your services.'; // Customize your default message
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     

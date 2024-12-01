@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./review-section.component.scss']
 })
 export class ReviewSectionComponent {
-
+  // Method to open the rating link in a new tab
+  openRatingPage() {
+    window.open('https://maps.app.goo.gl/am9EkW7ZMx3GrWww6', '_blank');
+  }
 }
