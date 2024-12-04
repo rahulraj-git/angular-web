@@ -1,12 +1,14 @@
 /* Image fade-in and scale effect */
 .carousel-item img {
-  height: 80vh;
+  height: 100vh;
   object-fit: cover;
   opacity: 0;
   transform: scale(1.05);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
-
+.carousel-item{
+  margin-top: 64px;
+}
 /* Active class for images */
 .carousel-item.active img {
   opacity: 1;

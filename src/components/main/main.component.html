@@ -1,15 +1,50 @@
 <div class="page-container">
-    <app-carousel class="carousel"></app-carousel>
-    <app-services-page class="services-page"></app-services-page>
-    <app-categories class="categories"></app-categories>
-    <app-our-products class="our-products"></app-our-products>
-    <app-review-section class="review-section"></app-review-section>
-    <app-map-section class="map-section"></app-map-section>
-    <app-footer class="footer"></app-footer>
-  </div>
+  <!-- Navigation Bar -->
+  <nav id="nav" class="navbar">
+    <div class="logo">
+      <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo">
+      <span class="heading">RIGID JERSEY</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#nav" (click)="toggleMenu()" (click)="scrollToSection('nav')">Home</a>
+      </li>
+      <li>
+        <a href="#services" (click)="toggleMenu()" (click)="scrollToSection('services')">Services</a>
+      </li>
+      <li>
+        <a href="#categories" (click)="toggleMenu()" (click)="scrollToSection('categories')">Categories</a>
+      </li>
+      <li>
+        <a href="#products" (click)="toggleMenu()" (click)="scrollToSection('products')">Our Products</a>
+      </li>
+      <li>
+        <a href="#size-chart" (click)="toggleMenu()" (click)="scrollToSection('size-chart')">Size Chart</a>
+      </li>
+      <li>
+        <a href="#reviews" (click)="toggleMenu()" (click)="scrollToSection('reviews')">Review</a>
+      </li>
+      <li>
+        <a href="#contact" (click)="toggleMenu()" (click)="scrollToSection('map')">Contact</a>
+      </li>
+    </ul>
+    <div class="burger-menu" (click)="toggleMenu()">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </nav>
+  <app-carousel id="home" class="carousel"></app-carousel>
+  <app-services-page id="services" class="services-page"></app-services-page>
+  <app-categories id="categories" class="categories"></app-categories>
+  <app-our-products id="products" class="our-products"></app-our-products>
+  <app-review-section id="reviews" class="review-section"></app-review-section>
+  <app-map-section id="map" class="map-section"></app-map-section>
+  <app-footer id="footer" class="footer"></app-footer>
+</div>
 
 <!-- WhatsApp Chat Button -->
 <div class="whatsapp-chat" (click)="openWhatsAppChat()">
-    <img src="assets/whatsapp.png" alt="Chat with us" class="whatsapp-icon" /><span class="chat-text">&nbsp;Chat with us</span>
-   
+  <img src="assets/whatsapp.png" alt="Chat with us" class="whatsapp-icon" />
+  <span class="chat-text">&nbsp;Chat with us</span>
 </div>
