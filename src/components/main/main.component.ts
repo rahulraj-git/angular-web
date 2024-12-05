@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
   menuActive = false;
+  isDropdownOpen: boolean=false;
 
   openWhatsAppChat() {
     const phoneNumber = '+918073877920'; // Replace with your WhatsApp number
@@ -39,6 +40,19 @@ export class MainComponent {
       });
     }
   }
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+
+    // Toggle the active class for the dropdown
+    const dropdownContent = document.querySelector('.dropdown-content');
+    if (this.isDropdownOpen) {
+      dropdownContent?.classList.add('show');
+    } else {
+      dropdownContent?.classList.remove('show');
+    }
+  }
+
+  // Optional method to toggle the main menu for mobile
 
   // Logic for toggling burger menu (for mobile responsiveness)
   toggleMenu(): void {

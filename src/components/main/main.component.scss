@@ -78,7 +78,9 @@ margin: 0px;
         text-align: right;
       }
     }
-
+.dropdown-content{
+  justify-items: center;
+}
     .burger-menu {
       display: flex;
     }
@@ -143,5 +145,32 @@ margin: 0px;
   
     &:hover {
       color: #cc0609;
+      cursor: pointer;
     }
   }
+  /* Dropdown Styles */
+.dropdown-content {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #696868;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* This will show the dropdown when the 'show' class is added */
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  cursor: pointer;
+  background-color: #7d7d7d;
+}

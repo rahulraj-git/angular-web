@@ -9,17 +9,13 @@
       <li>
         <a href="#nav" (click)="toggleMenu()" (click)="scrollToSection('nav')">Home</a>
       </li>
-      <li>
-        <a href="#services" (click)="toggleMenu()" (click)="scrollToSection('services')">Services</a>
-      </li>
-      <li>
-        <a href="#categories" (click)="toggleMenu()" (click)="scrollToSection('categories')">Categories</a>
-      </li>
-      <li>
-        <a href="#products" (click)="toggleMenu()" (click)="scrollToSection('products')">Our Products</a>
-      </li>
-      <li>
-        <a href="#size-chart" (click)="toggleMenu()" (click)="scrollToSection('size-chart')">Size Chart</a>
+      <li class="dropdown">
+        <a  (click)="toggleDropdown()" class="dropbtn">Team Wear</a>
+        <div class="dropdown-content">
+          <a href="#services" (click)="toggleDropdown()" (click)="toggleMenu()" (click)="scrollToSection('services')">Services</a>
+          <a href="#products" (click)="toggleDropdown()" (click)="toggleMenu()" (click)="scrollToSection('products')">Our Products</a>
+          <a href="#size-chart" (click)="toggleDropdown()" (click)="toggleMenu()" (click)="scrollToSection('size-chart')">Size Chart</a>
+        </div>
       </li>
       <li>
         <a href="#reviews" (click)="toggleMenu()" (click)="scrollToSection('reviews')">Review</a>
