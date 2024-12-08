@@ -20,6 +20,7 @@ import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboa
 import { ServicesPageComponent } from 'src/components/services-page/services-page.component';
 import { DetailsCatalogComponent } from 'src/components/details-catalog/details-catalog.component';
 import { DetailsCategoryComponent } from 'src/components/details-category/details-category.component';
+import { SizeChartComponent } from 'src/components/size-chart/size-chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { DetailsCategoryComponent } from 'src/components/details-category/detail
     AdminDashboardComponent,
     ServicesPageComponent,
     DetailsCatalogComponent,
-    DetailsCategoryComponent
+    DetailsCategoryComponent,
+    SizeChartComponent,
   ],
   imports: [
     BrowserModule,

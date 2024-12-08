@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'; // Adjust the path as pe
 import { DetailsCatalogComponent } from 'src/components/details-catalog/details-catalog.component';
 import { DetailsCategoryComponent } from 'src/components/details-category/details-category.component';
 import { MainComponent } from 'src/components/main/main.component';
+import { SizeChartComponent } from 'src/components/size-chart/size-chart.component';
 import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboard.component';
 import { FaqsComponent } from 'src/pages/faqs/faqs.component';
 import { LoginComponent } from 'src/pages/login/login.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'privacy-policy', component: PrivacyComponent },
   { path: 'terms-conditions', component: TermsComponent },
   { path: 'faqs', component: FaqsComponent },
+  { path: 'size-chart', component: SizeChartComponent },
 ];
 
 @NgModule({
