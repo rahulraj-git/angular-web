@@ -4,18 +4,26 @@ import { DetailsCatalogComponent } from 'src/components/details-catalog/details-
 import { DetailsCategoryComponent } from 'src/components/details-category/details-category.component';
 import { MainComponent } from 'src/components/main/main.component';
 import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboard.component';
+import { FaqsComponent } from 'src/pages/faqs/faqs.component';
 import { LoginComponent } from 'src/pages/login/login.component';
+import { PrivacyComponent } from 'src/pages/privacy/privacy.component';
+import { TermsComponent } from 'src/pages/terms/terms.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent }, // Default route to MainComponent
   { path: 'login', component: LoginComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'details-category', component: DetailsCategoryComponent },
-  {path: 'details-catalog', component: DetailsCatalogComponent}
+  {path: 'details-catalog', component: DetailsCatalogComponent},
+  { path: 'privacy-policy', component: PrivacyComponent },
+  { path: 'terms-conditions', component: TermsComponent },
+  { path: 'faqs', component: FaqsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+
 export class AppRoutingModule { }
