@@ -26,6 +26,16 @@ export class MainComponent {
 
   // Smooth scroll to sections
   navigateTo(sectionId: string): void {
+    this.isDropdownOpen = false;
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    if (dropdownContent) {
+      if (this.isDropdownOpen) {
+        dropdownContent.classList.add('show');
+      } else {
+        dropdownContent.classList.remove('show');
+      }
+    }
     const section = document.getElementById(sectionId);
     if (section) {
       const offset = 80; // Adjust offset as needed
