@@ -2,34 +2,34 @@
   display: flex;
   background-image: linear-gradient(to right, #696868, #000000);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
+  padding: 10px 20px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 101;
-  .heading{
-    padding: 0 20px;
-    color: #fff;
-  }
+  transition: opacity 0.3s ease-in-out;
+
   .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
+    display: flex;
+    align-items: center;
+
+    .brand-logo {
+      width: 40px;
+      margin-right: 10px;
+    }
   }
 
   .nav-links {
-margin: 0px;
+    margin: 0;
     display: flex;
     list-style: none;
+    align-items: center;
 
     li {
+      position: relative; /* Required for dropdown */
       margin: 0 15px;
 
       a {
@@ -67,20 +67,16 @@ margin: 0px;
       position: absolute;
       top: 60px;
       right: 0;
-      background-image: linear-gradient(to right, #696868, #000000);
-      align-items: center;
       width: 100%;
-      padding: 10px 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: #000000;
+      z-index: 100;
 
       li {
         margin: 10px 0;
-        text-align: right;
+        text-align: center;
       }
     }
-.dropdown-content{
-  justify-items: center;
-}
+
     .burger-menu {
       display: flex;
     }
@@ -89,11 +85,37 @@ margin: 0px;
       display: flex;
     }
   }
+  .heading{
+    color: white;
+    font-size: 23px;
+    font-weight: 600;
+  }
 }
-.brand-logo {
-  width: 60px;
-  height: auto;
-  // animation: heartbeat 4s ease-in-out infinite;
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #696868;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 102;
+
+  a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      background-color: #7d7d7d;
+    }
+  }
+
+  &.show {
+    display: block;
+  }
 }
 .whatsapp-chat {
   z-index: 100;
@@ -148,29 +170,3 @@ margin: 0px;
       cursor: pointer;
     }
   }
-  /* Dropdown Styles */
-.dropdown-content {
-  display: none; /* Hidden by default */
-  position: absolute;
-  background-color: #696868;
-  min-width: 160px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-/* This will show the dropdown when the 'show' class is added */
-.dropdown-content.show {
-  display: block;
-}
-
-.dropdown-content a {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  cursor: pointer;
-  background-color: #7d7d7d;
-}

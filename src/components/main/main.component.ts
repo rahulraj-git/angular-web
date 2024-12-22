@@ -1,64 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent {
-  menuActive = false;
-  isDropdownOpen: boolean=false;
+  menuActive: boolean = false;
+  isDropdownOpen: boolean = false;
+  isScrolled: boolean = false;
+  navbarOpacity: number = 1; // Initial opacity
 
-  openWhatsAppChat() {
-    const phoneNumber = '+918073877920'; // Replace with your WhatsApp number
-    const message = 'Hello! I would like to know more about your services.'; // Customize your default message
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+  // Detect scroll to apply styles dynamically
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const scrollTop = window.scrollY;
+    const maxScroll = 300; // Adjust this value as needed
+
+    // Set opacity based on scroll position (value between 1 and 0)
+    this.navbarOpacity = Math.max(1 - scrollTop / maxScroll, 0.5);
+
+    // Check if navbar should be in scrolled state
+    this.isScrolled = scrollTop > 50; // Set threshold
   }
 
-  // toggleMenu() {
-  //   this.menuActive = !this.menuActive;
-  //   const navLinks = document.querySelector('.nav-links');
-  //   if (navLinks) {
-  //     navLinks.classList.toggle('active', this.menuActive);
-  //   }
-  // }
-  // Method to scroll to a section
-  scrollToSection(sectionId: string): void {
+  // Smooth scroll to sections
+  navigateTo(sectionId: string): void {
     const section = document.getElementById(sectionId);
     if (section) {
-      const offset = 100; // Adjust this value to control the portion to hide
+      const offset = 80; // Adjust offset as needed
       const elementPosition = section.offsetTop;
       const scrollPosition = elementPosition - offset;
-  
-      // Use requestAnimationFrame for smoother, one-time scroll execution
-      requestAnimationFrame(() => {
-        window.scrollTo({
-          top: scrollPosition,
-          behavior: 'smooth',
-        });
+
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: 'smooth',
       });
+
+      // Close menu or dropdown after navigation (for mobile)
+      this.menuActive = false;
+      this.isDropdownOpen = false;
     }
   }
+
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
-
-    // Toggle the active class for the dropdown
     const dropdownContent = document.querySelector('.dropdown-content');
-    if (this.isDropdownOpen) {
-      dropdownContent?.classList.add('show');
-    } else {
-      dropdownContent?.classList.remove('show');
+
+    if (dropdownContent) {
+      if (this.isDropdownOpen) {
+        dropdownContent.classList.add('show');
+      } else {
+        dropdownContent.classList.remove('show');
+      }
     }
   }
 
-  // Optional method to toggle the main menu for mobile
-
-  // Logic for toggling burger menu (for mobile responsiveness)
+  // Toggle the main menu for mobile devices
   toggleMenu(): void {
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks) {
-      navLinks.classList.toggle('active');
-    }
+    this.menuActive = !this.menuActive;
+  }
+
+  // Open WhatsApp chat in a new tab
+  openWhatsAppChat(): void {
+    const phoneNumber = '+918073877920'; // Replace with your WhatsApp number
+    const message = 'Hello! I would like to know more about your services.';
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
   }
 }

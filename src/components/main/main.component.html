@@ -1,27 +1,27 @@
 <div class="page-container">
   <!-- Navigation Bar -->
-  <nav id="nav" class="navbar">
+  <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity">
     <div class="logo">
-      <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo">
+      <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo" />
       <span class="heading">RIGID JERSEY</span>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" [class.active]="menuActive">
       <li>
-        <a href="#nav" (click)="toggleMenu()" (click)="scrollToSection('nav')">Home</a>
+        <a href="#nav" (click)="navigateTo('nav')">Home</a>
       </li>
-      <li class="dropdown">
-        <a  (click)="toggleDropdown()" class="dropbtn">Team Wear</a>
+      <li class="dropdown" [class.open]="isDropdownOpen">
+        <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Team Wear</a>
         <div class="dropdown-content">
-          <a href="#services" (click)="toggleDropdown()" (click)="toggleMenu()" (click)="scrollToSection('services')">Services</a>
-          <a href="#products" (click)="toggleDropdown()" (click)="toggleMenu()" (click)="scrollToSection('products')">Our Products</a>
-          <a href="#sizeChart" (click)="toggleDropdown()" (click)="toggleMenu()" (click)="scrollToSection('size-chart')">Size Chart</a>
+          <a href="#services" (click)="navigateTo('services')">Services</a>
+          <a href="#products" (click)="navigateTo('products')">Our Products</a>
+          <a href="#sizeChart" (click)="navigateTo('sizeChart')">Size Chart</a>
         </div>
       </li>
       <li>
-        <a href="#reviews" (click)="toggleMenu()" (click)="scrollToSection('reviews')">Review</a>
+        <a href="#reviews" (click)="navigateTo('reviews')">Review</a>
       </li>
       <li>
-        <a href="#contact" (click)="toggleMenu()" (click)="scrollToSection('map')">Contact</a>
+        <a href="#map" (click)="navigateTo('map')">Contact</a>
       </li>
     </ul>
     <div class="burger-menu" (click)="toggleMenu()">
@@ -30,12 +30,14 @@
       <div class="line"></div>
     </div>
   </nav>
+
+  <!-- Components -->
   <app-carousel id="home" class="carousel"></app-carousel>
   <app-services-page id="services" class="services-page"></app-services-page>
   <app-categories id="categories" class="categories"></app-categories>
   <app-our-products id="products" class="our-products"></app-our-products>
   <app-review-section id="reviews" class="review-section"></app-review-section>
-  <app-size-chart  id="sizeChart" class="sizeChart-section"></app-size-chart>
+  <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
   <app-map-section id="map" class="map-section"></app-map-section>
   <app-footer id="footer" class="footer"></app-footer>
 </div>
