@@ -1,9 +1,11 @@
 <div class="page-container">
   <!-- Navigation Bar -->
-  <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity">
-    <div class="logo">
+  <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity"
+  [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : 'none'"
+  [style.box-shadow]="isScrolled ? '0 2px 5px rgba(0, 0, 0, 0.1)' : 'none'">
+    <div (click)="navigateTo('nav')" class="logo">
       <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo" />
-      <span class="heading">RIGID JERSEY</span>
+      <span  class="heading">RIGID JERSEY</span>
     </div>
     <ul class="nav-links" [class.active]="menuActive">
       <li>
