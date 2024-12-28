@@ -14,10 +14,13 @@
       <li class="dropdown" [class.open]="isDropdownOpen">
         <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Team Wear</a>
         <div class="dropdown-content">
-          <a href="#services" (click)="navigateTo('services')">Services</a>
+          <!-- <a href="#services" (click)="navigateTo('services')">Services</a> -->
           <a href="#products" (click)="navigateTo('products')">Our Products</a>
           <a href="#sizeChart" (click)="navigateTo('sizeChart')">Size Chart</a>
         </div>
+      </li>
+      <li>
+        <a href="#services" (click)="navigateTo('services')">Services</a>
       </li>
       <li>
         <a href="#reviews" (click)="navigateTo('reviews')">Review</a>
