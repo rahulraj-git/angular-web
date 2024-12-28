@@ -20,22 +20,46 @@ export class AdminDashboardComponent {
   categories: any[] = [];
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
   @ViewChild('categoryInput') categoryInput!: ElementRef;
+  @ViewChild('typeInput') typeInput!: ElementRef;
   @ViewChild('categoryImageInput') categoryImageInput!: ElementRef;
   @ViewChild('imageFileInput') imageFileInput!: ElementRef;
   @ViewChild('csvFileInput') csvFileInput!: ElementRef;
   @ViewChild('categoryDescriptionInput') categoryDescriptionInput!: ElementRef;
-  
+  @ViewChild('galleryImageInput') galleryImageInput!: ElementRef;
+  types: any;
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
   ngOnInit() {
     // Fetch categories when the component initializes
     this.fetchCategories();
+    this.fetchTypes();
   }
   fetchCategories() {
     this.http.get('https://rigidjersey.com/backend-api/api/get_category.php').subscribe(
       (response: any) => {
         if (response.success) {
           this.categories = response.data;
+        } else {
+          this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top', 
+            panelClass: ['custom-snack-bar'] });
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching categories:', error);
+        this.snackBar.open('Error fetching categories', 'Close', { duration: 3000, // 3 seconds
+          horizontalPosition: 'center', // To center it horizontally
+          verticalPosition: 'top', 
+          panelClass: ['custom-snack-bar'] });
+      }
+    );
+  }
+  fetchTypes() {
+    this.http.get('https://rigidjersey.com/backend-api/api/get_category_types.php').subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.types = response.data;
         } else {
           this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000, // 3 seconds
             horizontalPosition: 'center', // To center it horizontally
@@ -142,6 +166,10 @@ export class AdminDashboardComponent {
         });
     } else {
       this.uploadMessage = 'Please select all required files and provide a category name.';
+      this.snackBar.open('please fill all the fields', 'Close', { duration: 3000, // 3 seconds
+        horizontalPosition: 'center', // To center it horizontally
+        verticalPosition: 'top', 
+        panelClass: ['custom-snack-bar'] });
     }
 
 
@@ -155,20 +183,24 @@ export class AdminDashboardComponent {
       dataBulkUpload: null,
       catalogImage: null
     };
+    if (this.galleryImageInput)  this.galleryImageInput.nativeElement.value = '';
+    if(this.typeInput) this.typeInput.nativeElement.value = '';
     if (this.categoryNameInput) this.categoryNameInput.nativeElement.value = '';
     if (this.categoryDescriptionInput) this.categoryDescriptionInput.nativeElement.value = '';
     if (this.categoryImageInput) this.categoryImageInput.nativeElement.value = '';
     if (this.imageFileInput) this.imageFileInput.nativeElement.value = '';
     if (this.csvFileInput) this.csvFileInput.nativeElement.value = '';
   }
-  onAddCategorySubmit(name: string, description: string, image: File | null, event: Event) {
+  onAddCategorySubmit(name: string, description: string, image: File | null,type: string, event: Event) {
     event.preventDefault();  // Prevent form from refreshing the page
     console.log('onAddCategorySubmit called');
-    if (name && description && image) {
+    debugger
+    if (name && description && image&&type) {
       const formData = new FormData();
       formData.append('category_name', name);
       formData.append('description', description);
       formData.append('image', image);
+      formData.append('category_type_id', type);
   
       console.log('Sending request to backend...');
       this.isLoading = true;
@@ -193,7 +225,12 @@ export class AdminDashboardComponent {
       });
     } else {
       this.uploadMessage = 'Please provide all required fields: category name, description, and image.';
+      this.snackBar.open('Please provide all required fields: category name, description, and image.', 'Close', { duration: 3000, // 3 seconds
+        horizontalPosition: 'center', // To center it horizontally
+        verticalPosition: 'top', 
+        panelClass: ['custom-snack-bar'] });
     }
+    this.resetFields();
   }
   // Method to trigger the download of subscriber data
   downloadSubscribers() {
@@ -252,6 +289,61 @@ export class AdminDashboardComponent {
             verticalPosition: 'top',
             panelClass: ['custom-snack-bar'] });
         },
+      });
+    }
+      // Method to handle file selection
+  onFileSelectGallery(event: any, type: string) {
+    const file = event.target.files[0];  // Get the selected file
+    if (file) {
+      console.log('Selected file:', file);
+    }
+  }
+    // Method to handle gallery image upload form submission
+    onGalleryImageUploadSubmit(event: any) {
+      event.preventDefault();  // Prevent default form submission behavior
+      // Get the selected file
+      const galleryImage = event.target[0].files[0];
+      
+      // If no image is selected, show error message
+      if (!galleryImage) {
+        this.snackBar.open('Please select an image to upload', 'Close', { 
+          duration: 3000, 
+          horizontalPosition: 'center', 
+          verticalPosition: 'top',
+          panelClass: ['custom-snack-bar']
+        });
+        return;
+      }
+  
+      // Prepare form data for the API call
+      const formData = new FormData();
+      formData.append('image', galleryImage);
+  
+      const apiUrl = 'https://rigidjersey.com/backend-api/api/upload_customer_image.php'; // API endpoint for gallery image upload
+  
+      // Make the API call to upload the image
+      this.http.post(apiUrl, formData).subscribe({
+        next: (response: any) => {
+          this.snackBar.open(response.error ? response.error : 'Gallery image uploaded successfully', 'Close', { 
+            duration: 3000, 
+            horizontalPosition: 'center', 
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar']
+          });
+          
+          // Reset the file input after successful upload
+       this.galleryImageInput.nativeElement.value = '';
+       this.resetFields();
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          this.snackBar.open(error.error.error ? error.error.error : 'Failed to upload image. Please try again.', 'Close', { 
+            duration: 3000, 
+            horizontalPosition: 'center', 
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar']
+          });
+        }
       });
     }
 }

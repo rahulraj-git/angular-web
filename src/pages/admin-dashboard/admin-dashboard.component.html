@@ -16,6 +16,14 @@
     
     <form >
       <label>
+        Type:
+        <select #typeInput required>
+          <option value="">Select a Type</option>
+          <!-- Loop through the categories array to populate the options -->
+          <option *ngFor="let type of types" [value]="type.id">{{ type.name }}</option>
+        </select>
+      </label>
+      <label>
         Category Name:
         <input type="text" #categoryNameInput required />
       </label>
@@ -27,7 +35,8 @@
         Category Image:
         <input type="file" #categoryImageInput accept="image/*" required (change)="onFileSelect($event, 'categoryImage')" />
       </label>
-      <button (click)="onAddCategorySubmit(categoryNameInput?.value || '', categoryDescriptionInput?.value || '', categoryImageInput?.files?.[0] || null,$event)" type="submit" [disabled]="!categoryNameInput.value || !categoryDescriptionInput.value || !categoryImageInput.files?.length">Add Category</button>
+      <button  
+       (click)="onAddCategorySubmit(categoryNameInput?.value || '', categoryDescriptionInput?.value || '', categoryImageInput?.files?.[0] || null, typeInput?.value || '',$event)" type="submit">Add Category</button>
     </form>
   </section>
 
@@ -45,12 +54,24 @@
     </label>
     <input type="file" #imageFileInput accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
     <input type="file" #csvFileInput accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
-    <button type="submit" [disabled]="!isFileSelected('imageBulkUpload') || !isFileSelected('dataCsvUpload') || !categoryInput.value">
+    <button type="submit" >
       Upload Images
     </button>
   </form>
 </section>
-
+ <!-- Gallery Image Upload Section -->
+<section class="upload-section">
+  <h3>Gallery Image Upload</h3>
+  <form (submit)="onGalleryImageUploadSubmit($event)">
+    <label>
+      Upload Gallery Image:
+      <input type="file" #galleryImageInput accept="image/*" required (change)="onFileSelectGallery($event, 'galleryImage')" />
+    </label>
+    <button type="submit">
+      Upload Gallery Image
+    </button>
+  </form>
+</section>
   <!-- Single Catalog Submission Section -->
   <!-- <section class="catalog-section">
     <h3>Single Catalog Submission</h3>

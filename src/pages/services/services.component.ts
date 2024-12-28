@@ -7,6 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ServicesComponent {
   @Output() navigateBack = new EventEmitter<string>();
+  ngOnInit(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   goBack() {
     // Emit a value when this method is called

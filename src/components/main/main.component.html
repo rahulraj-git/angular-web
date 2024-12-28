@@ -1,7 +1,7 @@
 <div class="page-container">
   <!-- Navigation Bar -->
   <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity"
-  [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : section=='servicesPage'? 'linear-gradient(to right, #696868, #000000)' : 'none'"
+  [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : section=='servicesPage'||section=='gallery'? 'linear-gradient(to right, #696868, #000000)' : 'none'"
   [style.box-shadow]="isScrolled ? '0 2px 5px rgba(0, 0, 0, 0.1)' : 'none'">
     <div (click)="navigateTo('nav')" class="logo">
       <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo" />
@@ -11,12 +11,17 @@
       <li>
         <a href="#nav" (click)="navigateTo('nav')">Home</a>
       </li>
+      <li>
+        <a href="#nav" (click)="navigateTo('nav')">Team Wear</a>
+      </li>
       <li class="dropdown" [class.open]="isDropdownOpen">
-        <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Team Wear</a>
+        <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Custom Jersey</a>
         <div class="dropdown-content">
           <!-- <a href="#services" (click)="navigateTo('services')">Services</a> -->
+          <a href="#categories" (click)="navigateTo('categories')">Categories</a>
           <a href="#products" (click)="navigateTo('products')">Our Products</a>
           <a href="#sizeChart" (click)="navigateTo('sizeChart')">Size Chart</a>
+          <a href="#sizeChart" (click)="navigateTo('sizeChart')">Collar Types</a>
         </div>
       </li>
       <li>
@@ -46,7 +51,9 @@
     <h2 class="clients-heading">Our Clients</h2>
     <img src="assets/clients.jpg" alt="Our Clients" class="responsive-client-image">
   </div>
-  <app-gallary class="mb-3"></app-gallary>
+  <app-gallary [backbtn]="false"  class="mb-3"></app-gallary>
+  <div class="text-center">  <button (click)="sectionChange('gallery')" class="text-center view-all-button">View All</button></div>
+
     <!-- <app-services-page id="services" class="services-page"></app-services-page> -->
      <!-- How to Order Section -->
   <div class="how-to-order-section">
@@ -66,6 +73,10 @@
    </div>
    <div *ngIf="section=='servicesPage'">
     <app-services (navigateBack)="handleNavigateBack($event)"></app-services>
+    <app-footer id="footer" class="footer"></app-footer>
+   </div>
+   <div *ngIf="section=='gallery'">
+    <app-gallary [backbtn]="true" (navigateBack)="handleNavigateBack($event)" class="mb-3"></app-gallary>
     <app-footer id="footer" class="footer"></app-footer>
    </div>
 

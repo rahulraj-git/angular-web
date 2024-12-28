@@ -21,7 +21,7 @@ export class CategoriesComponent {
   }
 
   getCategory() {
-    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php').subscribe((response: any) => {
+    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=1').subscribe((response: any) => {
       if (response.success) {
         this.categoryList = response.data;
         this.limitCategories();  // Limit categories to 6 initially
