@@ -11,8 +11,25 @@
       <li>
         <a href="#nav" (click)="navigateTo('nav')">Home</a>
       </li>
-      <li>
-        <a href="#nav" (click)="navigateTo('nav')">Team Wear</a>
+      <li class="dropdown" [class.open]="isDropdownOpenTeam">
+        <a (click)="toggleDropdownforTeam()" class="dropbtn" aria-haspopup="true">Team Wear</a>
+        <div class="dropdown-content-team">
+          <div *ngFor="let team of teamList">
+            <a (click)="onTypeClick(team)">{{ team.name }}</a>
+            
+          </div>
+       
+        </div>
+      </li>
+      <li class="dropdown" [class.open]="isDropdownOpenAcc">
+        <a (click)="toggleDropdownforAcc()" class="dropbtn" aria-haspopup="true">Accessories</a>
+        <div class="dropdown-content-acc">
+          <div *ngFor="let team of accList">
+            <a (click)="onTypeClick(team)">{{ team.name }}</a>
+            
+          </div>
+       
+        </div>
       </li>
       <li class="dropdown" [class.open]="isDropdownOpen">
         <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Custom Jersey</a>
