@@ -22,6 +22,7 @@ import { DetailsCatalogComponent } from 'src/components/details-catalog/details-
 import { DetailsCategoryComponent } from 'src/components/details-category/details-category.component';
 import { SizeChartComponent } from 'src/components/size-chart/size-chart.component';
 import { ServicesComponent } from 'src/pages/services/services.component';
+import { GallaryComponent } from 'src/pages/gallary/gallary.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { ServicesComponent } from 'src/pages/services/services.component';
     DetailsCatalogComponent,
     DetailsCategoryComponent,
     SizeChartComponent,
-    ServicesComponent
+    ServicesComponent,
+    GallaryComponent
   ],
   imports: [
     BrowserModule,

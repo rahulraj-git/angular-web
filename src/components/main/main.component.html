@@ -41,12 +41,27 @@
     <app-carousel id="home" class="carousel"></app-carousel>
     <app-our-products id="products" class="our-products"></app-our-products>
     <app-categories id="categories" class="categories"></app-categories>
-    <app-services-page id="services" class="services-page"></app-services-page>
-   
+        <!-- New Clients Section -->
+  <div class="clients-section">
+    <h2 class="clients-heading">Our Clients</h2>
+    <img src="assets/clients.jpg" alt="Our Clients" class="responsive-client-image">
+  </div>
+  <app-gallary class="mb-3"></app-gallary>
+    <!-- <app-services-page id="services" class="services-page"></app-services-page> -->
+     <!-- How to Order Section -->
+  <div class="how-to-order-section">
+    <h2 class="order-heading">How to Order</h2>
+    <div class="order-images">
+      <img src="assets/howToOrder1.png" alt="Step 1" class="order-image">
+      <img src="assets/howToOrder2.png" alt="Step 2" class="order-image">
+    </div>
+  </div>
     
     <app-review-section id="reviews" class="review-section"></app-review-section>
     <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
+  
     <app-map-section id="map" class="map-section"></app-map-section>
+   
     <app-footer id="footer" class="footer"></app-footer>
    </div>
    <div *ngIf="section=='servicesPage'">

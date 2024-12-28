@@ -1,3 +1,13 @@
+.size-chart-container {
+  padding-top: 30px;
+h2{
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+}
+
+
 .image-row {
     display: flex;
     justify-content: space-around;
@@ -5,8 +15,8 @@
     gap: 20px;
     flex-wrap: wrap;
     padding: 10px;
-    padding-top: 150px;
-    padding-bottom: 150px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   
     // Animation for images
     .image-container {
@@ -14,7 +24,7 @@
       position: relative;
       transition: transform 0.3s ease-in-out;
       &:hover {
-        transform: scale(1.1);
+        transform: scale(1.3);
       }
       
     }
@@ -34,3 +44,27 @@
       gap: 15px;
     }
   }
+/* Add this without changing existing styles */
+.collar-types-container {
+  flex: 1 1 100%; /* Take full width on larger screens */
+  display: flex;
+  justify-content: center;
+  margin-top: 30px; /* Add space above the collar types image */
+}
+
+.collar-types {
+  max-width: 80%; /* Make the image responsive */
+  height: auto;
+  border-radius: 10px; 
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .collar-types-container {
+    margin-top: 20px; /* Adjust spacing for smaller screens */
+  }
+
+  .collar-types {
+    max-width: 100%; /* Full width on smaller screens */
+  }
+}
