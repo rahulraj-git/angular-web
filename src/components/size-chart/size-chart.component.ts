@@ -8,8 +8,9 @@ import { Component } from '@angular/core';
 export class SizeChartComponent {
 // Array of local image URLs
 images = [
-  'assets/pant.jpeg',
   'assets/shirt.jpeg',
+  'assets/pant.jpeg',
+  
   'assets/trouser.jpeg',
 ];
 }

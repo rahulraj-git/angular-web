@@ -165,9 +165,9 @@
     transform: none;  /* Remove map container scaling effect */
   }
 
-  .map-container img {
-    animation: none;  /* Remove zoom animation */
-  }
+  // .map-container img {
+  //   animation: none;  /* Remove zoom animation */
+  // }
 
   .map-container:hover img {
     animation-play-state: running; /* Keep the animation paused state */

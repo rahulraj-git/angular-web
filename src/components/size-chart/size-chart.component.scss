@@ -37,30 +37,9 @@ h2{
     }
   }
   
-  // Responsive styling
-
-/* Add this without changing existing styles */
-.collar-types-container {
-  flex: 1 1 100%; /* Take full width on larger screens */
-  display: flex;
-  justify-content: center;
-  margin-top: 30px; /* Add space above the collar types image */
-}
-
-.collar-types {
-  max-width: 80%; /* Make the image responsive */
-  height: auto;
-  border-radius: 10px; 
-}
 
 @media screen and (max-width: 768px) {
-  .collar-types-container {
-    margin-top: 20px; /* Adjust spacing for smaller screens */
-  }
 
-  .collar-types {
-    max-width: 100%; /* Full width on smaller screens */
-  }
   .image-row {
     flex-direction: column;
     gap: 15px;

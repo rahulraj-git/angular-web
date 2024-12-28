@@ -2,7 +2,10 @@
   <!-- Navigation Bar -->
   <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity"
   [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : section=='servicesPage'||section=='gallery'? 'linear-gradient(to right, #696868, #000000)' : 'none'"
-  [style.box-shadow]="isScrolled ? '0 2px 5px rgba(0, 0, 0, 0.1)' : 'none'">
+  [style.box-shadow]="isScrolled ? '0 2px 5px rgba(0, 0, 0, 0.1)' : 'none'"
+  [style.opacity]="isHovered ? 1 : navbarOpacity"
+  (mouseover)="isHovered = true" 
+  (mouseout)="isHovered = false">
     <div (click)="navigateTo('nav')" class="logo">
       <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo" />
       <span  class="heading">RIGID JERSEY</span>
@@ -10,6 +13,16 @@
     <ul class="nav-links" [class.active]="menuActive">
       <li>
         <a href="#nav" (click)="navigateTo('nav')">Home</a>
+      </li>
+      <li class="dropdown" [class.open]="isDropdownOpen">
+        <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Custom Jersey</a>
+        <div class="dropdown-content">
+          <!-- <a href="#services" (click)="navigateTo('services')">Services</a> -->
+          <a href="#categories" (click)="navigateTo('categories')">Categories</a>
+          <a href="#products" (click)="navigateTo('products')">Our Products</a>
+          <a href="#sizeChart" (click)="navigateTo('sizeChart')">Size Chart</a>
+          <a href="#collar-types" (click)="navigateTo('collar-types')">Collar Types</a>
+        </div>
       </li>
       <li class="dropdown" [class.open]="isDropdownOpenTeam">
         <a (click)="toggleDropdownforTeam()" class="dropbtn" aria-haspopup="true">Team Wear</a>
@@ -31,16 +44,7 @@
        
         </div>
       </li>
-      <li class="dropdown" [class.open]="isDropdownOpen">
-        <a (click)="toggleDropdown()" class="dropbtn" aria-haspopup="true">Custom Jersey</a>
-        <div class="dropdown-content">
-          <!-- <a href="#services" (click)="navigateTo('services')">Services</a> -->
-          <a href="#categories" (click)="navigateTo('categories')">Categories</a>
-          <a href="#products" (click)="navigateTo('products')">Our Products</a>
-          <a href="#sizeChart" (click)="navigateTo('sizeChart')">Size Chart</a>
-          <a href="#sizeChart" (click)="navigateTo('sizeChart')">Collar Types</a>
-        </div>
-      </li>
+     
       <li>
         <a  (click)="sectionChange('servicesPage')">Services</a>
       </li>
@@ -81,11 +85,18 @@
     </div>
   </div>
     
-    <app-review-section id="reviews" class="review-section"></app-review-section>
-    <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
-  
-    <app-map-section id="map" class="map-section"></app-map-section>
+    
    
+  <div id="collar-types" class="collar-types" class="text-center">  
+    <h2 class="collar-types-heading">Collar Types</h2>
+    </div>
+    <div  class="collar-types-container">
+      
+      <img src="assets/collar-types.jpg" alt="Collar Types" class="collar-types" />
+    </div>
+    <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
+    <app-map-section id="map" class="map-section"></app-map-section>
+    <app-review-section id="reviews" class="review-section"></app-review-section>
     <app-footer id="footer" class="footer"></app-footer>
    </div>
    <div *ngIf="section=='servicesPage'">

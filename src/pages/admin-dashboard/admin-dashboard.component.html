@@ -45,15 +45,30 @@
   <h3>Image Bulk Upload</h3>
   <form (submit)="onImageBulkUploadSubmit($event)">
     <label>
-      Category:
-      <select #categoryInput required>
-        <option value="">Select a category</option>
+      Type Filter:
+      <select #typeInput2 (change)="onTypeChange(typeInput2.value)" required>
+        <option value="">Select a Type</option>
         <!-- Loop through the categories array to populate the options -->
-        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+        <option *ngFor="let type of types" [value]="type.id">{{ type.name }}</option>
       </select>
     </label>
-    <input type="file" #imageFileInput accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
+    <label >
+      Category:
+      <select [disabled]="!selectedType" #categoryInput required>
+        <option value="">Select a category</option>
+        <!-- Loop through the categories array to populate the options -->
+        <option *ngFor="let category of categories2" [value]="category.name">{{ category.name }}</option>
+      </select>
+    </label>
+    <label for="imageFileInput">
+      Upload Zip File for Bulk Image Upload:
+      <input type="file" #imageFileInput accept=".zip" (change)="onFileSelect($event, 'imageBulkUpload')" />
+    </label>
+   <label for="csvFileInput">
+    Upload CSV File for Bulk Data Upload:
     <input type="file" #csvFileInput accept=".csv" (change)="onFileSelect($event, 'dataCsvUpload')" />
+   </label>
+    
     <button type="submit" >
       Upload Images
     </button>

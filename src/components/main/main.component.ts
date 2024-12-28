@@ -19,7 +19,7 @@ export class MainComponent {
   teamList: any;
   isDropdownOpenAcc: boolean = false;
   accList: any;
-
+  isHovered = false; 
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -179,11 +179,12 @@ export class MainComponent {
   toggleDropdownforAcc(): void {
     this.isDropdownOpenAcc = !this.isDropdownOpenAcc;
     this.isDropdownOpen = false
-    const dropdownContent = document.querySelector('.dropdown-content-team');
-    const dropdownContent2 = document.querySelector('.dropdown-content');
-    const dropdownContent3 = document.querySelector('.dropdown-content-acc');
+    this.isDropdownOpenTeam = false
+    const dropdownContent = document.querySelector('.dropdown-content-acc');
+    const dropdownContent2 = document.querySelector('.dropdown-content-team');
+    const dropdownContent3 = document.querySelector('.dropdown-content');
     if (dropdownContent2) {
-      if (this.isDropdownOpen) {
+      if (this.isDropdownOpenTeam) {
         dropdownContent2.classList.add('show');
       } else {
         dropdownContent2.classList.remove('show');
@@ -197,7 +198,7 @@ export class MainComponent {
       }
     }
     if (dropdownContent) {
-      if (this.isDropdownOpenTeam) {
+      if (this.isDropdownOpenAcc) {
         dropdownContent.classList.add('show');
       } else {
         dropdownContent.classList.remove('show');

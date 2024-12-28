@@ -27,6 +27,8 @@ export class AdminDashboardComponent {
   @ViewChild('categoryDescriptionInput') categoryDescriptionInput!: ElementRef;
   @ViewChild('galleryImageInput') galleryImageInput!: ElementRef;
   types: any;
+  selectedType: any;
+  categories2: any;
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
   ngOnInit() {
@@ -157,6 +159,10 @@ export class AdminDashboardComponent {
           },
           (error: HttpErrorResponse) => {
             console.error('Error during image bulk upload:', error);
+            this.snackBar.open(error.error.error, 'Close', { duration: 5000, // 3 seconds
+              horizontalPosition: 'center', // To center it horizontally
+              verticalPosition: 'top', 
+              panelClass: ['custom-snack-bar'] });
             this.uploadMessage = error.error instanceof SyntaxError ? 
               'Parsing error in response. Please check the server response format.' : 
               'Error during image bulk upload. Please try again.';
@@ -194,7 +200,6 @@ export class AdminDashboardComponent {
   onAddCategorySubmit(name: string, description: string, image: File | null,type: string, event: Event) {
     event.preventDefault();  // Prevent form from refreshing the page
     console.log('onAddCategorySubmit called');
-    debugger
     if (name && description && image&&type) {
       const formData = new FormData();
       formData.append('category_name', name);
@@ -345,6 +350,28 @@ export class AdminDashboardComponent {
           });
         }
       });
+    }
+    onTypeChange(event: any) {
+      this.selectedType = event;
+      this.http.get(`https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=${this.selectedType}`).subscribe(
+        (response: any) => {
+          if (response.success) {
+            this.categories2 = response.data;
+          } else {
+            this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000, // 3 seconds
+              horizontalPosition: 'center', // To center it horizontally
+              verticalPosition: 'top', 
+              panelClass: ['custom-snack-bar'] });
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error fetching categories:', error);
+          this.snackBar.open('Error fetching categories', 'Close', { duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top', 
+            panelClass: ['custom-snack-bar'] });
+        }
+      );
     }
 }
 
