@@ -21,6 +21,7 @@ import { ServicesPageComponent } from 'src/components/services-page/services-pag
 import { DetailsCatalogComponent } from 'src/components/details-catalog/details-catalog.component';
 import { DetailsCategoryComponent } from 'src/components/details-category/details-category.component';
 import { SizeChartComponent } from 'src/components/size-chart/size-chart.component';
+import { ServicesComponent } from 'src/pages/services/services.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { SizeChartComponent } from 'src/components/size-chart/size-chart.compone
     DetailsCatalogComponent,
     DetailsCategoryComponent,
     SizeChartComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,

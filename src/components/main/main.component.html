@@ -1,7 +1,7 @@
 <div class="page-container">
   <!-- Navigation Bar -->
   <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity"
-  [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : 'none'"
+  [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : section=='servicesPage'? 'linear-gradient(to right, #696868, #000000)' : 'none'"
   [style.box-shadow]="isScrolled ? '0 2px 5px rgba(0, 0, 0, 0.1)' : 'none'">
     <div (click)="navigateTo('nav')" class="logo">
       <img src="assets/logo-2.png" alt="Brand Logo" class="brand-logo" />
@@ -20,7 +20,7 @@
         </div>
       </li>
       <li>
-        <a href="#services" (click)="navigateTo('services')">Services</a>
+        <a  (click)="sectionChange('servicesPage')">Services</a>
       </li>
       <li>
         <a href="#reviews" (click)="navigateTo('reviews')">Review</a>
@@ -37,14 +37,23 @@
   </nav>
 
   <!-- Components -->
-  <app-carousel id="home" class="carousel"></app-carousel>
-  <app-services-page id="services" class="services-page"></app-services-page>
-  <app-categories id="categories" class="categories"></app-categories>
-  <app-our-products id="products" class="our-products"></app-our-products>
-  <app-review-section id="reviews" class="review-section"></app-review-section>
-  <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
-  <app-map-section id="map" class="map-section"></app-map-section>
-  <app-footer id="footer" class="footer"></app-footer>
+   <div *ngIf="section=='other'">
+    <app-carousel id="home" class="carousel"></app-carousel>
+    <app-our-products id="products" class="our-products"></app-our-products>
+    <app-categories id="categories" class="categories"></app-categories>
+    <app-services-page id="services" class="services-page"></app-services-page>
+   
+    
+    <app-review-section id="reviews" class="review-section"></app-review-section>
+    <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
+    <app-map-section id="map" class="map-section"></app-map-section>
+    <app-footer id="footer" class="footer"></app-footer>
+   </div>
+   <div *ngIf="section=='servicesPage'">
+    <app-services (navigateBack)="handleNavigateBack($event)"></app-services>
+    <app-footer id="footer" class="footer"></app-footer>
+   </div>
+
 </div>
 
 <!-- WhatsApp Chat Button -->

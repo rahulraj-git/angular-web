@@ -8,6 +8,7 @@ import { AdminDashboardComponent } from 'src/pages/admin-dashboard/admin-dashboa
 import { FaqsComponent } from 'src/pages/faqs/faqs.component';
 import { LoginComponent } from 'src/pages/login/login.component';
 import { PrivacyComponent } from 'src/pages/privacy/privacy.component';
+import { ServicesComponent } from 'src/pages/services/services.component';
 import { TermsComponent } from 'src/pages/terms/terms.component';
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'terms-conditions', component: TermsComponent },
   { path: 'faqs', component: FaqsComponent },
   { path: 'size-chart', component: SizeChartComponent },
+  { path: 'services', component: ServicesComponent },
 ];
 
 @NgModule({

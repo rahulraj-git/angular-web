@@ -10,6 +10,7 @@ export class MainComponent {
   isDropdownOpen: boolean = false;
   isScrolled: boolean = false;
   navbarOpacity: number = 1; // Initial opacity
+  section: any='other';
 
   // Detect scroll to apply styles dynamically
   @HostListener('window:scroll', [])
@@ -50,7 +51,9 @@ export class MainComponent {
       // Close menu or dropdown after navigation (for mobile)
       this.menuActive = false;
       this.isDropdownOpen = false;
+   
     }
+       this.section='other'
   }
 
   toggleDropdown(): void {
@@ -64,6 +67,7 @@ export class MainComponent {
         dropdownContent.classList.remove('show');
       }
     }
+
   }
 
   // Toggle the main menu for mobile devices
@@ -77,5 +81,17 @@ export class MainComponent {
     const message = 'Hello! I would like to know more about your services.';
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
+  }
+  sectionChange(sectionName: any) {
+    this.section = sectionName
+    this.menuActive = false;
+    this.isDropdownOpen = false;
+  }
+  handleNavigateBack(event: string) {
+    console.log('Received from child:', event);
+    // Example: Change the section based on the emitted value
+    if (event === 'backToParent') {
+      this.section = 'other';
+    }
   }
 }

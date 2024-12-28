@@ -20,7 +20,7 @@
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
-    opacity: 0;
+    // opacity: 0;
     transition: opacity 1s ease-in-out; /* Smooth transition for opacity */
 }
 
@@ -51,7 +51,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     text-align: center;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-    animation: fadeInUp 1.2s ease forwards;
+    // animation: fadeInUp 1.2s ease forwards;
 }
 
 .category-item:hover {
@@ -103,16 +103,16 @@
     background: #f44336; /* Slightly lighter red for hover */
 }
 
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+// @keyframes fadeInUp {
+//     0% {
+//         opacity: 0;
+//         transform: translateY(30px);
+//     }
+//     100% {
+//         opacity: 1;
+//         transform: translateY(0);
+//     }
+// }
 
 @keyframes zoomIn {
     0% {
