@@ -40,7 +40,7 @@ export class DetailsCatalogComponent implements OnInit {
 
   onEnquireNow(): void {
     const phoneNumber = '+918073877920'; // Replace with your WhatsApp number
-    const message = `Hello! I would like to know more about your product details Unique Code='${this.productDetails.unique_code}`; 
+    const message = `Hello! I would like to know more about your product details Unique Code=${this.productDetails.unique_code}`; 
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     
     window.open(url, '_blank');

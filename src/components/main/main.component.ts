@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
@@ -32,16 +33,26 @@ export class MainComponent {
     // Check if navbar should be in scrolled state
     this.isScrolled = scrollTop > 50; // Set threshold
   }
-  constructor(private router: Router,private http: HttpClient) {}
+  constructor(private router: Router,private http: HttpClient, private viewportScroller: ViewportScroller) {}
   ngOnInit(): void {
     this.getCategory();
   }
   // Smooth scroll to sections
-  navigateTo(sectionId: string): void {
+  navigateTo(sectionId: any): void {
     this.isDropdownOpen = false;
     this.isDropdownOpenTeam = false
+    this.isDropdownOpenAcc = false
     const dropdownContent = document.querySelector('.dropdown-content');
     const dropdownContent2 = document.querySelector('.dropdown-content-team');
+    const dropdownContent3 = document.querySelector('.dropdown-content-acc');
+    if (dropdownContent3) {
+      if (this.isDropdownOpenAcc) {
+        dropdownContent3.classList.add('show');
+      }
+      else {
+        dropdownContent3.classList.remove('show');
+      }
+    }
     if (dropdownContent) {
       if (this.isDropdownOpen) {
         dropdownContent.classList.add('show');
@@ -56,9 +67,11 @@ export class MainComponent {
         dropdownContent2.classList.remove('show');
       }
     }
+
+   setTimeout(() => {
     const section = document.getElementById(sectionId);
     if (section) {
-      const offset = 80; // Adjust offset as needed
+      const offset = 70; // Adjust offset as per your navbar height
       const elementPosition = section.offsetTop;
       const scrollPosition = elementPosition - offset;
 
@@ -66,13 +79,13 @@ export class MainComponent {
         top: scrollPosition,
         behavior: 'smooth',
       });
-
-      // Close menu or dropdown after navigation (for mobile)
+    }
+  }, 100);
+  
       this.menuActive = false;
       this.isDropdownOpen = false;
       this.isDropdownOpenTeam = false;
    
-    }
        this.section='other'
   }
   navigateToTeam(sectionId: string): void {
@@ -223,6 +236,7 @@ export class MainComponent {
     this.menuActive = false;
     this.isDropdownOpen = false;
     this.isDropdownOpenTeam = false;
+    this.isDropdownOpenAcc = false
   }
   handleNavigateBack(event: string) {
     console.log('Received from child:', event);
