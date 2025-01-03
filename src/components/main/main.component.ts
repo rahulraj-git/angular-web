@@ -82,6 +82,7 @@ export class MainComponent {
     }
   }, 100);
   
+  
       this.menuActive = false;
       this.isDropdownOpen = false;
       this.isDropdownOpenTeam = false;
