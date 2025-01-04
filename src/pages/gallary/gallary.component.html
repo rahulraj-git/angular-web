@@ -1,6 +1,6 @@
 <div class="admin-dashboard-container">
     <button *ngIf="backbtn" class="back-btn" (click)="goBack()">&#8592; Back</button> 
-    <h2  [ngStyle]="{ 'margin-top': backbtn ? '80px' : '0px' }" class="text-center">Gallery</h2>
+    <h2  [ngStyle]="{ 'margin-top': backbtn ? '80px' : '0px' }" class="gallery-head text-center">Gallery</h2>
     <div class="gallery-container">
       <!-- Use slice to limit the array size to 4 if backbtn is false -->
       <div class="gallery-item" *ngFor="let image of (backbtn ? galleryImages : galleryImages?.slice(0, 4))">
