@@ -22,6 +22,7 @@ export class AdminDashboardComponent {
   isLoading: boolean = false;
   categories: any[] = [];
   selectedBannerIndex: number | null = null;
+  cacheBuster: number = Date.now(); // Cache-busting timestamp
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
   @ViewChild('categoryInput') categoryInput!: ElementRef;
   @ViewChild('typeInput') typeInput!: ElementRef;
@@ -354,6 +355,7 @@ export class AdminDashboardComponent {
           // Reset the file input after successful upload
        this.galleryImageInput.nativeElement.value = '';
        this.resetFields();
+       this.cacheBuster = Date.now(); // Update cache-busting timestamp
         },
         error: (error) => {
           console.error('API Error:', error);
@@ -416,6 +418,7 @@ export class AdminDashboardComponent {
             panelClass: ['custom-snack-bar']
           });
           this.resetFields();
+          this.cacheBuster = Date.now(); // Update cache-busting timestamp
         },
         error: (error) => {
           console.error('API Error:', error);

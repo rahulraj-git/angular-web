@@ -108,15 +108,15 @@
         <div class="image-preview-container">
           <div class="image-preview">
             <label>Laptop Preview:</label>
-            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Desktop/banner' + selectedBannerIndex + '-desktop.jpg'" alt="Laptop Banner Preview" />
+            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Desktop/banner' + selectedBannerIndex + '-desktop.jpg?timestamp=' + cacheBuster" alt="Laptop Banner Preview" />
           </div>
           <div class="image-preview">
             <label>Tablet Preview:</label>
-            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Tablet/banner' + selectedBannerIndex + '-tablet.jpg'" alt="Tablet Banner Preview" />
+            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Tablet/banner' + selectedBannerIndex + '-tablet.jpg?timestamp=' + cacheBuster" alt="Tablet Banner Preview" />
           </div>
           <div class="image-preview">
             <label>Mobile Preview:</label>
-            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Mobile/banner' + selectedBannerIndex + '-mobile.jpg'" alt="Mobile Banner Preview" />
+            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Mobile/banner' + selectedBannerIndex + '-mobile.jpg?timestamp=' + cacheBuster" alt="Mobile Banner Preview" />
           </div>
         </div>
         <label>
