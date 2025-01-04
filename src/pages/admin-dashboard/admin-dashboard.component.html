@@ -2,6 +2,11 @@
   <h2 class="text-center">Admin Dashboard</h2>
 <!-- Subscriber download -->
 
+  <!-- Loading Animation -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
   <!-- Add Category Section -->
   <section class="upload-section">
     <div class="d-flex justify-content-between">
@@ -87,29 +92,49 @@
     </button>
   </form>
 </section>
-  <!-- Single Catalog Submission Section -->
-  <!-- <section class="catalog-section">
-    <h3>Single Catalog Submission</h3>
-    <form (ngSubmit)="onCatalogSubmit(nameInput.value, codeInput.value, descriptionInput.value)">
+
+  <!-- Update Banner Image Section -->
+  <section class="upload-section">
+    <h3>Update Banner Image</h3>
+    <form (submit)="onUpdateBannerSubmit($event)">
       <label>
-        Name:
-        <input type="text" #nameInput required />
+        Select Banner Index:
+        <select #bannerIndexInput (change)="onBannerIndexChange(+bannerIndexInput.value)" required>
+          <option value="">Select an Index</option>
+          <option *ngFor="let index of [1, 2, 3, 4, 5]" [value]="index">Banner {{ index }}</option>
+        </select>
       </label>
-      <label>
-        Code:
-        <input type="text" #codeInput required />
-      </label>
-      <label>
-        Description:
-        <textarea #descriptionInput required></textarea>
-      </label>
-      <label>
-        Image Upload:
-        <input type="file" accept="image/*" (change)="onFileSelect($event, 'catalogImage')" />
-      </label>
-      <button type="submit" [disabled]="!isFileSelected('catalogImage')">Submit Catalog</button>
+      <div *ngIf="selectedBannerIndex">
+        <div class="image-preview-container">
+          <div class="image-preview">
+            <label>Laptop Preview:</label>
+            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Desktop/banner' + selectedBannerIndex + '-desktop.jpg'" alt="Laptop Banner Preview" />
+          </div>
+          <div class="image-preview">
+            <label>Tablet Preview:</label>
+            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Tablet/banner' + selectedBannerIndex + '-tablet.jpg'" alt="Tablet Banner Preview" />
+          </div>
+          <div class="image-preview">
+            <label>Mobile Preview:</label>
+            <img [src]="'https://rigidjersey.com/backend-api/uploads/Banner_image/Mobile/banner' + selectedBannerIndex + '-mobile.jpg'" alt="Mobile Banner Preview" />
+          </div>
+        </div>
+        <label>
+          Upload Laptop Image:
+          <input type="file" #laptopImageInput accept="image/*" required (change)="onFileSelect($event, 'laptopImage')" />
+        </label>
+        <label>
+          Upload Tablet Image:
+          <input type="file" #tabletImageInput accept="image/*" required (change)="onFileSelect($event, 'tabletImage')" />
+        </label>
+        <label>
+          Upload Phone Image:
+          <input type="file" #phoneImageInput accept="image/*" required (change)="onFileSelect($event, 'phoneImage')" />
+        </label>
+      </div>
+      <button type="submit" [disabled]="!selectedBannerIndex">Update Banner</button>
     </form>
-  </section> -->
+  </section>
 
   <!-- priority section -->
   <section class="upload-section">

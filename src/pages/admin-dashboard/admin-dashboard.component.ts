@@ -11,13 +11,17 @@ export class AdminDashboardComponent {
     imageBulkUpload: null as File | null,
     dataCsvUpload: null as File | null,
     dataBulkUpload: null as File | null,
-    catalogImage: null as File | null
+    catalogImage: null as File | null,
+    laptopImage: null as File | null,
+    tabletImage: null as File | null,
+    phoneImage: null as File | null
   };
   priorityValue: number | null = null; // Holds the priority input value
   uniqueCodeValue: string = '';
   uploadMessage: string | null = null;
   isLoading: boolean = false;
   categories: any[] = [];
+  selectedBannerIndex: number | null = null;
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
   @ViewChild('categoryInput') categoryInput!: ElementRef;
   @ViewChild('typeInput') typeInput!: ElementRef;
@@ -26,6 +30,10 @@ export class AdminDashboardComponent {
   @ViewChild('csvFileInput') csvFileInput!: ElementRef;
   @ViewChild('categoryDescriptionInput') categoryDescriptionInput!: ElementRef;
   @ViewChild('galleryImageInput') galleryImageInput!: ElementRef;
+  @ViewChild('bannerIndexInput') bannerIndexInput!: ElementRef;
+  @ViewChild('laptopImageInput') laptopImageInput!: ElementRef;
+  @ViewChild('tabletImageInput') tabletImageInput!: ElementRef;
+  @ViewChild('phoneImageInput') phoneImageInput!: ElementRef;
   types: any;
   selectedType: any;
   categories2: any;
@@ -187,7 +195,10 @@ export class AdminDashboardComponent {
       imageBulkUpload: null,
       dataCsvUpload: null,
       dataBulkUpload: null,
-      catalogImage: null
+      catalogImage: null,
+      laptopImage: null,
+      tabletImage: null,
+      phoneImage: null
     };
     if (this.galleryImageInput)  this.galleryImageInput.nativeElement.value = '';
     if(this.typeInput) this.typeInput.nativeElement.value = '';
@@ -196,6 +207,10 @@ export class AdminDashboardComponent {
     if (this.categoryImageInput) this.categoryImageInput.nativeElement.value = '';
     if (this.imageFileInput) this.imageFileInput.nativeElement.value = '';
     if (this.csvFileInput) this.csvFileInput.nativeElement.value = '';
+    if (this.bannerIndexInput) this.bannerIndexInput.nativeElement.value = '';
+    if (this.laptopImageInput) this.laptopImageInput.nativeElement.value = '';
+    if (this.tabletImageInput) this.tabletImageInput.nativeElement.value = '';
+    if (this.phoneImageInput) this.phoneImageInput.nativeElement.value = '';
   }
   onAddCategorySubmit(name: string, description: string, image: File | null,type: string, event: Event) {
     event.preventDefault();  // Prevent form from refreshing the page
@@ -373,6 +388,56 @@ export class AdminDashboardComponent {
         }
       );
     }
+    // Method to handle banner index change
+  onBannerIndexChange(index: number) {
+    this.selectedBannerIndex = index;
+  }
+
+  // Method to handle banner update form submission
+  onUpdateBannerSubmit(event: Event) {
+    event.preventDefault();  // Prevent default form submission behavior
+
+    if (this.selectedBannerIndex && this.selectedFiles.laptopImage && this.selectedFiles.tabletImage && this.selectedFiles.phoneImage) {
+      this.isLoading = true;
+      const formData = new FormData();
+      formData.append('order', this.selectedBannerIndex.toString());
+      formData.append('desktop_banner', this.selectedFiles.laptopImage);
+      formData.append('tablet_banner', this.selectedFiles.tabletImage);
+      formData.append('mobile_banner', this.selectedFiles.phoneImage);
+
+      const apiUrl = 'https://rigidjersey.com/backend-api/api/update_banner_image.php'; // API endpoint for banner image update
+
+      this.http.post(apiUrl, formData).subscribe({
+        next: (response: any) => {
+          this.snackBar.open(response.error ? response.error : 'Banner image updated successfully', 'Close', { 
+            duration: 3000, 
+            horizontalPosition: 'center', 
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar']
+          });
+          this.resetFields();
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          this.snackBar.open(error.error.error ? error.error.error : 'Failed to update banner image. Please try again.', 'Close', { 
+            duration: 3000, 
+            horizontalPosition: 'center', 
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar']
+          });
+        }
+      }).add(() => {
+        this.isLoading = false;
+      });
+    } else {
+      this.snackBar.open('Please select all required images and a banner index', 'Close', { 
+        duration: 3000, 
+        horizontalPosition: 'center', 
+        verticalPosition: 'top',
+        panelClass: ['custom-snack-bar']
+      });
+    }
+  }
 }
 
 
