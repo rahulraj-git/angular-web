@@ -57,5 +57,8 @@ export class DetailsCategoryComponent implements OnInit {
   }
   goBack() {
     this.location.back(); // This will navigate back in the browser history
+    setTimeout(() => {
+      this.router.navigate([], { fragment: 'categories' });
+    }, 100);
   }
 }

@@ -1,26 +1,25 @@
 import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent {
-    // Detect scroll to apply styles dynamically
-  
+export class MainComponent implements OnInit {
+  // Detect scroll to apply styles dynamically
   menuActive: boolean = false;
   isDropdownOpen: boolean = false;
   isScrolled: boolean = false;
   navbarOpacity: number = 1; // Initial opacity
-  section: any='other';
+  section: any = 'other';
   isDropdownOpenTeam: boolean = false;
   teamList: any;
   isDropdownOpenAcc: boolean = false;
   accList: any;
-  isHovered = false; 
+  isHovered = false;
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -33,23 +32,35 @@ export class MainComponent {
     // Check if navbar should be in scrolled state
     this.isScrolled = scrollTop > 50; // Set threshold
   }
-  constructor(private router: Router,private http: HttpClient, private viewportScroller: ViewportScroller) {}
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private viewportScroller: ViewportScroller,
+    private route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
     this.getCategory();
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment) {
+        this.navigateTo(fragment);
+      }
+    });
   }
+
   // Smooth scroll to sections
   navigateTo(sectionId: any): void {
     this.isDropdownOpen = false;
-    this.isDropdownOpenTeam = false
-    this.isDropdownOpenAcc = false
+    this.isDropdownOpenTeam = false;
+    this.isDropdownOpenAcc = false;
     const dropdownContent = document.querySelector('.dropdown-content');
     const dropdownContent2 = document.querySelector('.dropdown-content-team');
     const dropdownContent3 = document.querySelector('.dropdown-content-acc');
     if (dropdownContent3) {
       if (this.isDropdownOpenAcc) {
         dropdownContent3.classList.add('show');
-      }
-      else {
+      } else {
         dropdownContent3.classList.remove('show');
       }
     }
@@ -68,30 +79,30 @@ export class MainComponent {
       }
     }
 
-   setTimeout(() => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      const offset = 70; // Adjust offset as per your navbar height
-      const elementPosition = section.offsetTop;
-      const scrollPosition = elementPosition - offset;
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const offset = 70; // Adjust offset as per your navbar height
+        const elementPosition = section.offsetTop;
+        const scrollPosition = elementPosition - offset;
 
-      window.scrollTo({
-        top: scrollPosition,
-        behavior: 'smooth',
-      });
-    }
-  }, 100);
-  
-  
-      this.menuActive = false;
-      this.isDropdownOpen = false;
-      this.isDropdownOpenTeam = false;
-   
-       this.section='other'
+        window.scrollTo({
+          top: scrollPosition,
+          behavior: 'smooth',
+        });
+      }
+    }, 100);
+
+    this.menuActive = false;
+    this.isDropdownOpen = false;
+    this.isDropdownOpenTeam = false;
+
+    this.section = 'other';
   }
+
   navigateToTeam(sectionId: string): void {
     this.isDropdownOpen = false;
-    this.isDropdownOpenTeam = false
+    this.isDropdownOpenTeam = false;
     const dropdownContent = document.querySelector('.dropdown-content-team');
     const dropdownContent2 = document.querySelector('.dropdown-content');
 
@@ -124,15 +135,15 @@ export class MainComponent {
       this.menuActive = false;
       this.isDropdownOpen = false;
       this.isDropdownOpenTeam = false;
-      this.isDropdownOpenAcc = false
-   
+      this.isDropdownOpenAcc = false;
     }
-       this.section='other'
+    this.section = 'other';
   }
+
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
-    this.isDropdownOpenTeam = false
-    this.isDropdownOpenAcc = false
+    this.isDropdownOpenTeam = false;
+    this.isDropdownOpenAcc = false;
     const dropdownContent = document.querySelector('.dropdown-content');
     const dropdownContent2 = document.querySelector('.dropdown-content-team');
     const dropdownContent3 = document.querySelector('.dropdown-content-acc');
@@ -158,12 +169,12 @@ export class MainComponent {
         dropdownContent.classList.remove('show');
       }
     }
-
   }
+
   toggleDropdownforTeam(): void {
     this.isDropdownOpenTeam = !this.isDropdownOpenTeam;
-    this.isDropdownOpenAcc = false
-    this.isDropdownOpen = false
+    this.isDropdownOpenAcc = false;
+    this.isDropdownOpen = false;
     const dropdownContent = document.querySelector('.dropdown-content-team');
     const dropdownContent2 = document.querySelector('.dropdown-content');
     const dropdownContent3 = document.querySelector('.dropdown-content-acc');
@@ -188,12 +199,12 @@ export class MainComponent {
         dropdownContent.classList.remove('show');
       }
     }
-
   }
+
   toggleDropdownforAcc(): void {
     this.isDropdownOpenAcc = !this.isDropdownOpenAcc;
-    this.isDropdownOpen = false
-    this.isDropdownOpenTeam = false
+    this.isDropdownOpen = false;
+    this.isDropdownOpenTeam = false;
     const dropdownContent = document.querySelector('.dropdown-content-acc');
     const dropdownContent2 = document.querySelector('.dropdown-content-team');
     const dropdownContent3 = document.querySelector('.dropdown-content');
@@ -218,8 +229,8 @@ export class MainComponent {
         dropdownContent.classList.remove('show');
       }
     }
-
   }
+
   // Toggle the main menu for mobile devices
   toggleMenu(): void {
     this.menuActive = !this.menuActive;
@@ -232,13 +243,15 @@ export class MainComponent {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   }
+
   sectionChange(sectionName: any) {
-    this.section = sectionName
+    this.section = sectionName;
     this.menuActive = false;
     this.isDropdownOpen = false;
     this.isDropdownOpenTeam = false;
-    this.isDropdownOpenAcc = false
+    this.isDropdownOpenAcc = false;
   }
+
   handleNavigateBack(event: string) {
     console.log('Received from child:', event);
     // Example: Change the section based on the emitted value
@@ -246,30 +259,38 @@ export class MainComponent {
       this.section = 'other';
     }
   }
+
   getCategory() {
-    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=2').subscribe((response: any) => {
-      if (response.success) {
-        this.teamList = response.data;
-      } else {
-        alert('Failed to load categories.');
+    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=2').subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.teamList = response.data;
+        } else {
+          alert('Failed to load categories.');
+        }
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+        alert('An error occurred. Please try again.');
       }
-    }, error => {
-      console.error('Error fetching categories:', error);
-      alert('An error occurred. Please try again.');
-    });
-    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=3').subscribe((response: any) => {
-      if (response.success) {
-        this.accList = response.data;
-      } else {
-        alert('Failed to load categories.');
+    );
+    this.http.get('https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=3').subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.accList = response.data;
+        } else {
+          alert('Failed to load categories.');
+        }
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+        alert('An error occurred. Please try again.');
       }
-    }, error => {
-      console.error('Error fetching categories:', error);
-      alert('An error occurred. Please try again.');
-    });
+    );
   }
-    // Navigate to the category details page
-    onTypeClick(category: any) {
-      this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
-    }
+
+  // Navigate to the category details page
+  onTypeClick(category: any) {
+    this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
+  }
 }
