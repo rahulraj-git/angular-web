@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-details-catalog',
@@ -11,7 +12,7 @@ export class DetailsCatalogComponent implements OnInit {
   catalogId: string | null = null;
   productDetails: any = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private location: Location, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -49,5 +50,11 @@ export class DetailsCatalogComponent implements OnInit {
   convertImageUrl(imagePath: string): string {
     const baseUrl1 = 'https://rigidjersey.com/backend-api';
     return baseUrl1 + imagePath.replace('..', ''); // Adjust the relative path to an absolute URL
+  }
+  goBack() {
+    this.location.back(); // This will navigate back in the browser history
+    setTimeout(() => {
+      this.router.navigate([], { fragment: 'products' });
+    }, 100);
   }
 }

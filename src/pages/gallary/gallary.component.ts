@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // For displaying messages
 
 @Component({
@@ -12,8 +13,8 @@ export class GallaryComponent implements OnInit {
   @Input() backbtn:any; 
   galleryImages: any; // Array to hold gallery images
   apiUrl: string = 'https://rigidjersey.com/backend-api/api/get_gallery.php'; // API endpoint for getting gallery images
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {}
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.fetchGalleryImages();
@@ -22,6 +23,9 @@ export class GallaryComponent implements OnInit {
   goBack() {
     // Emit a value when this method is called
     this.navigateBack.emit('backToParent');
+    setTimeout(() => {
+      this.router.navigate([], { fragment: 'gallery' });
+    }, 100);
   }
   fetchGalleryImages(): void {
     const baseUrl = 'https://rigidjersey.com/backend-api/'; // Base URL for images

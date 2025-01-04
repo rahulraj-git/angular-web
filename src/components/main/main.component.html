@@ -21,6 +21,7 @@
           <a href="#categories" (click)="navigateTo('categories')">Categories</a>
           <a href="#products" (click)="navigateTo('products')">Our Products</a>
           <a href="#sizeChart" (click)="navigateTo('sizeChart')">Size Chart</a>
+          <a href="#layout" (click)="navigateTo('layout')">Layouts</a>
           <a href="#collar-types" (click)="navigateTo('collar-types')">Collar Types</a>
         </div>
       </li>
@@ -72,7 +73,7 @@
     <h2 class="clients-heading">Our Clients</h2>
     <img src="assets/clients.jpg" alt="Our Clients" class="responsive-client-image">
   </div>
-  <app-gallary [backbtn]="false"  class="mb-3"></app-gallary>
+  <app-gallary id="gallery" [backbtn]="false"  class="mb-3"></app-gallary>
   <div class="text-center">  <button (click)="sectionChange('gallery')" class="text-center view-all-button">View All</button></div>
 
     <!-- <app-services-page id="services" class="services-page"></app-services-page> -->
@@ -94,6 +95,14 @@
       
       <img src="assets/collar-types.jpg" alt="Collar Types" class="collar-types" />
     </div>
+    <div id="layout" class="collar-types" class="text-center">  
+      <h2 class="collar-types-heading">Layout</h2>
+      </div>
+      <div  class="collar-types-container">
+        
+        <img src="assets/layout.jpg" alt="Collar Types" class="collar-types" />
+      </div>
+
     <app-size-chart id="sizeChart" class="size-chart"></app-size-chart>
     <app-map-section id="map" class="map-section"></app-map-section>
     <app-review-section id="reviews" class="review-section"></app-review-section>
