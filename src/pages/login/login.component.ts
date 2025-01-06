@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+declare var gtag: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,6 +23,15 @@ export class LoginComponent {
 
     this.http.post('https://rigidjersey.com/backend-api/api/login.php', loginData).subscribe((response: any) => {
       if (response.success) {
+        // Google Analytics tracking code
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'login_success', {
+            event_category: 'Authentication',
+            event_label: 'Login',
+            value: this.username
+          });
+        }
+
         // Redirect to the admin dashboard if login is successful
         this.router.navigate(['/admin-dashboard']);
       } else {

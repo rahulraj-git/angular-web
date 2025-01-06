@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare var gtag: any;
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -132,6 +134,14 @@ export class MainComponent implements OnInit {
     this.isDropdownOpenTeam = false;
 
     this.section = 'other';
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', `navigate_to_${sectionId}`, {
+        event_category: 'Navigation',
+        event_label: sectionId
+      });
+    }
   }
 
   navigateToTeam(sectionId: string): void {
@@ -170,6 +180,14 @@ export class MainComponent implements OnInit {
       this.isDropdownOpen = false;
       this.isDropdownOpenTeam = false;
       this.isDropdownOpenAcc = false;
+
+      // Google Analytics tracking code
+      if (typeof gtag !== 'undefined') {
+        gtag('event', `navigate_to_team_${sectionId}`, {
+          event_category: 'Navigation',
+          event_label: sectionId
+        });
+      }
     }
     this.section = 'other';
   }
@@ -203,6 +221,14 @@ export class MainComponent implements OnInit {
         dropdownContent.classList.remove('show');
       }
     }
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'toggle_dropdown', {
+        event_category: 'Navigation',
+        event_label: 'Dropdown'
+      });
+    }
   }
 
   toggleDropdownforTeam(): void {
@@ -232,6 +258,14 @@ export class MainComponent implements OnInit {
       } else {
         dropdownContent.classList.remove('show');
       }
+    }
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'toggle_dropdown_team', {
+        event_category: 'Navigation',
+        event_label: 'Dropdown Team'
+      });
     }
   }
 
@@ -263,11 +297,27 @@ export class MainComponent implements OnInit {
         dropdownContent.classList.remove('show');
       }
     }
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'toggle_dropdown_acc', {
+        event_category: 'Navigation',
+        event_label: 'Dropdown Accessories'
+      });
+    }
   }
 
   // Toggle the main menu for mobile devices
   toggleMenu(): void {
     this.menuActive = !this.menuActive;
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'toggle_menu', {
+        event_category: 'Navigation',
+        event_label: 'Menu'
+      });
+    }
   }
 
   // Open WhatsApp chat in a new tab
@@ -276,6 +326,15 @@ export class MainComponent implements OnInit {
     const message = 'Hello! I would like to know more about your services.';
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'whatsapp_chat_opened', {
+        event_category: 'Engagement',
+        event_label: 'WhatsApp Chat',
+        value: phoneNumber
+      });
+    }
   }
 
   sectionChange(sectionName: any) {
@@ -284,6 +343,14 @@ export class MainComponent implements OnInit {
     this.isDropdownOpen = false;
     this.isDropdownOpenTeam = false;
     this.isDropdownOpenAcc = false;
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', `${sectionName}_section_viewed`, {
+        event_category: 'Navigation',
+        event_label: sectionName
+      });
+    }
   }
 
   handleNavigateBack(event: string) {
@@ -291,6 +358,14 @@ export class MainComponent implements OnInit {
     // Example: Change the section based on the emitted value
     if (event === 'backToParent') {
       this.section = 'other';
+
+      // Google Analytics tracking code
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'navigate_back_to_parent', {
+          event_category: 'Navigation',
+          event_label: 'Back to Parent'
+        });
+      }
     }
   }
 
@@ -325,6 +400,15 @@ export class MainComponent implements OnInit {
 
   // Navigate to the category details page
   onTypeClick(category: any) {
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', `${category.name}_category_viewed`, {
+        event_category: 'Category',
+        event_label: category.name,
+        value: category.id
+      });
+    }
+
     this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
   }
 }

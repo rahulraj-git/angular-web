@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
+declare var gtag: any;
+
 @Component({
   selector: 'app-services-page',
   templateUrl: './services-page.component.html',
@@ -72,6 +75,15 @@ export class ServicesPageComponent {
       const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       
       window.open(url, '_blank');
+
+      // Google Analytics tracking code
+      if (typeof gtag !== 'undefined') {
+        gtag('event', `learn_more_${category.name}_clicked`, {
+          event_category: 'Engagement',
+          event_label: `Learn More - ${category.name}`,
+          value: category.id
+        });
+      }
     }
   
 }

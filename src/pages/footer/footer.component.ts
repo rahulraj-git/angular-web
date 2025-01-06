@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+declare var gtag: any;
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -51,6 +54,16 @@ export class FooterComponent {
             this.subscribed=true
             this.email='';
             this.name='';
+
+            // Google Analytics tracking code
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'subscribe_button_clicked', {
+                event_category: 'Engagement',
+                event_label: 'Subscribe',
+                value: payload.email || payload.phone
+              });
+            }
+
             // Handle success response
           },
           (error) => {

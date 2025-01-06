@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // For displaying messages
 
+declare var gtag: any;
+
 @Component({
   selector: 'app-gallary',
   templateUrl: './gallary.component.html',
@@ -25,6 +27,14 @@ export class GallaryComponent implements OnInit {
     this.navigateBack.emit('backToParent');
     setTimeout(() => {
       this.router.navigate([], { fragment: 'gallery' });
+
+      // Google Analytics tracking code
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'gallery_back_button_clicked', {
+          event_category: 'Navigation',
+          event_label: 'Gallery Back Button'
+        });
+      }
     }, 100);
   }
   fetchGalleryImages(): void {

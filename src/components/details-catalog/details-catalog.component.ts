@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 
+declare var gtag: Function;
+
 @Component({
   selector: 'app-details-catalog',
   templateUrl: './details-catalog.component.html',
@@ -45,7 +47,14 @@ export class DetailsCatalogComponent implements OnInit {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     
     window.open(url, '_blank');
-
+ // Google Analytics tracking code
+ if (typeof gtag !== 'undefined') {
+  gtag('event', `enquire_now_clicked_${this.productDetails.unique_code}`, {
+    event_category: 'Engagement',
+    event_label: `Enquire Now - ${this.productDetails.unique_code}`,
+    value: this.productDetails.unique_code
+  });
+}
   }
   convertImageUrl(imagePath: string): string {
     const baseUrl1 = 'https://rigidjersey.com/backend-api';

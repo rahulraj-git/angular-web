@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+declare var gtag: any;
+
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -43,11 +45,28 @@ export class CategoriesComponent {
   showAllCategories() {
     this.displayedCategories = this.categoryList;
     this.isViewAll = true;  // Change the flag to indicate all categories are shown
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'view_all_categories_clicked', {
+        event_category: 'Category',
+        event_label: 'View All Categories'
+      });
+    }
   }
-   // Hide all categories and show only the first 6
-   hideCategories() {
+
+  // Hide all categories and show only the first 6
+  hideCategories() {
     this.limitCategories();
     this.isViewAll = false;  // Change the flag to indicate categories are hidden
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'hide_categories_clicked', {
+        event_category: 'Category',
+        event_label: 'Hide Categories'
+      });
+    }
   }
 
   // Convert image URL to the full URL
@@ -57,6 +76,15 @@ export class CategoriesComponent {
 
   // Navigate to the category details page
   onCategoryClick(category: any) {
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', `${category.name}_category_viewed`, {
+        event_category: 'Category',
+        event_label: category.name,
+        value: category.id
+      });
+    }
+
     this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
   }
 }

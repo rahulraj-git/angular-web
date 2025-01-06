@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
+declare var gtag: any;
+
 @Component({
   selector: 'app-our-products',
   templateUrl: './our-products.component.html',
@@ -93,6 +95,15 @@ export class OurProductsComponent {
   //   );
   // }
   navigateToProductDetails(product:any){
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', `${product.name}_details_checked`, {
+        event_category: 'Product',
+        event_label: product.name,
+        value: product.id
+      });
+    }
+
     this.router.navigate(['/details-catalog'], { queryParams: { id: product.id } });
   }
 }
