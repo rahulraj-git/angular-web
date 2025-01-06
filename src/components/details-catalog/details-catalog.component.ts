@@ -49,12 +49,9 @@ export class DetailsCatalogComponent implements OnInit {
   }
   convertImageUrl(imagePath: string): string {
     const baseUrl1 = 'https://rigidjersey.com/backend-api';
-    return baseUrl1 + imagePath.replace('..', ''); // Adjust the relative path to an absolute URL
+    return baseUrl1 + imagePath?.replace('..', ''); // Adjust the relative path to an absolute URL
   }
   goBack() {
     this.location.back(); // This will navigate back in the browser history
-    setTimeout(() => {
-      this.router.navigate([], { fragment: 'products' });
-    }, 100);
   }
 }

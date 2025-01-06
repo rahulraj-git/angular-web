@@ -1,6 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -32,12 +32,46 @@ export class MainComponent implements OnInit {
     // Check if navbar should be in scrolled state
     this.isScrolled = scrollTop > 50; // Set threshold
   }
-
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const targetElement = event.target as HTMLElement;
+  
+    // Check if the click is outside the menu and dropdowns
+  
+  
+    console.log('Clicked element:', targetElement);
+    // console.log('Is click outside menu:', isClickOutsideMenu);
+  
+    if (targetElement.className!== 'dropbtn' ) {
+      this.closeAllMenus();
+    }
+    if(targetElement.className !== 'dropbtn' && targetElement.className !== 'line'){
+    this.menuActive = false;
+      this.closeAllMenus();
+    }
+  }
+  
+  // Utility method to close all menus
+  closeAllMenus(): void {
+    this.isDropdownOpen = false;
+    this.isDropdownOpenTeam = false;
+    this.isDropdownOpenAcc = false;
+  
+    // Close dropdowns
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const dropdownContent2 = document.querySelector('.dropdown-content-team');
+    const dropdownContent3 = document.querySelector('.dropdown-content-acc');
+  
+    if (dropdownContent) dropdownContent.classList.remove('show');
+    if (dropdownContent2) dropdownContent2.classList.remove('show');
+    if (dropdownContent3) dropdownContent3.classList.remove('show');
+  }
   constructor(
     private router: Router,
     private http: HttpClient,
     private viewportScroller: ViewportScroller,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
