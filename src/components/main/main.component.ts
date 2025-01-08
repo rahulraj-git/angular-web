@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   isDropdownOpenAcc: boolean = false;
   accList: any;
   isHovered = false;
+  showScrollToTop: boolean = false; // Flag to show/hide the scroll-to-top button
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -33,7 +34,12 @@ export class MainComponent implements OnInit {
 
     // Check if navbar should be in scrolled state
     this.isScrolled = scrollTop > 50; // Set threshold
+
+    // Show/hide scroll-to-top button based on scroll position
+    const scrollHeight = document.documentElement.scrollHeight;
+    this.showScrollToTop = scrollTop > (scrollHeight * 0.2); // Show button when scrolled 20% of the site
   }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const targetElement = event.target as HTMLElement;
@@ -410,5 +416,21 @@ export class MainComponent implements OnInit {
     }
 
     this.router.navigate(['/details-category'], { queryParams: { id: category.id } });
+  }
+
+  // Scroll to the top of the page
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'scroll_to_top_clicked', {
+        event_category: 'Navigation',
+        event_label: 'Scroll to Top'
+      });
+    }
   }
 }
