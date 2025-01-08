@@ -87,6 +87,7 @@
     }
   }
   .heading{
+    font-family:Arial, Helvetica, sans-serif;
     color: white;
     font-size: 23px;
     font-weight: 600;
@@ -363,5 +364,18 @@
   &:hover {
     background-color: #e53935;
     transform: scale(1.1);
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1024px) { /* Targets laptops and larger screens */
+  .order-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .order-image:hover {
+    transform: scale(1.05); /* Slightly enlarge the image */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
   }
 }

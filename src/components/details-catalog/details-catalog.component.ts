@@ -62,5 +62,8 @@ export class DetailsCatalogComponent implements OnInit {
   }
   goBack() {
     this.location.back(); // This will navigate back in the browser history
+    setTimeout(() => {
+      this.router.navigate([], { fragment: 'products' });
+    }, 100);
   }
 }
