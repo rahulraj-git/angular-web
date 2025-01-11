@@ -14,7 +14,8 @@ export class AdminDashboardComponent {
     catalogImage: null as File | null,
     laptopImage: null as File | null,
     tabletImage: null as File | null,
-    phoneImage: null as File | null
+    phoneImage: null as File | null,
+    updateCategoryImage: null as File | null,
   };
   priorityValue: number | null = null; // Holds the priority input value
   uniqueCodeValue: string = '';
@@ -23,6 +24,9 @@ export class AdminDashboardComponent {
   categories: any[] = [];
   selectedBannerIndex: number | null = null;
   cacheBuster: number = Date.now(); // Cache-busting timestamp
+  deleteUniqueCode: string = '';
+  updateCategories: any[] = [];
+  selectedUpdateType: any;
   @ViewChild('categoryNameInput') categoryNameInput!: ElementRef;
   @ViewChild('categoryInput') categoryInput!: ElementRef;
   @ViewChild('typeInput') typeInput!: ElementRef;
@@ -35,6 +39,10 @@ export class AdminDashboardComponent {
   @ViewChild('laptopImageInput') laptopImageInput!: ElementRef;
   @ViewChild('tabletImageInput') tabletImageInput!: ElementRef;
   @ViewChild('phoneImageInput') phoneImageInput!: ElementRef;
+  @ViewChild('updateCategoryInput') updateCategoryInput!: ElementRef;
+  @ViewChild('updateCategoryNameInput') updateCategoryNameInput!: ElementRef;
+  @ViewChild('updateCategoryDescriptionInput') updateCategoryDescriptionInput!: ElementRef;
+  @ViewChild('updateCategoryImageInput') updateCategoryImageInput!: ElementRef;
   types: any;
   selectedType: any;
   categories2: any;
@@ -199,7 +207,8 @@ export class AdminDashboardComponent {
       catalogImage: null,
       laptopImage: null,
       tabletImage: null,
-      phoneImage: null
+      phoneImage: null,
+      updateCategoryImage: null,
     };
     if (this.galleryImageInput)  this.galleryImageInput.nativeElement.value = '';
     if(this.typeInput) this.typeInput.nativeElement.value = '';
@@ -212,6 +221,11 @@ export class AdminDashboardComponent {
     if (this.laptopImageInput) this.laptopImageInput.nativeElement.value = '';
     if (this.tabletImageInput) this.tabletImageInput.nativeElement.value = '';
     if (this.phoneImageInput) this.phoneImageInput.nativeElement.value = '';
+    if (this.updateCategoryInput) this.updateCategoryInput.nativeElement.value = '';
+    if (this.updateCategoryNameInput) this.updateCategoryNameInput.nativeElement.value = '';
+    if (this.updateCategoryDescriptionInput) this.updateCategoryDescriptionInput.nativeElement.value = '';
+    if (this.updateCategoryImageInput) this.updateCategoryImageInput.nativeElement.value = '';
+    
   }
   onAddCategorySubmit(name: string, description: string, image: File | null,type: string, event: Event) {
     event.preventDefault();  // Prevent form from refreshing the page
@@ -438,6 +452,113 @@ export class AdminDashboardComponent {
         horizontalPosition: 'center', 
         verticalPosition: 'top',
         panelClass: ['custom-snack-bar']
+      });
+    }
+  }
+
+  onDeleteCatalogSubmit(event: Event): void {
+    event.preventDefault(); // Prevent the default form behavior
+
+    const payload = {
+      unique_code: this.deleteUniqueCode,
+    };
+
+    // Call the API
+    this.deleteCatalog(payload);
+  }
+
+  // API call to delete catalog
+  deleteCatalog(payload: { unique_code: string }): void {
+    const apiUrl = 'https://rigidjersey.com/backend-api/api/delete_catalog.php';
+
+    this.http.post(apiUrl, payload ).subscribe({
+      next: (response: any) => {
+        this.snackBar.open(response.message, 'Close', { 
+          duration: 3000, // 3 seconds
+          horizontalPosition: 'center', // To center it horizontally
+          verticalPosition: 'top',
+          panelClass: ['custom-snack-bar'] 
+        });
+        this.deleteUniqueCode = '';
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        this.snackBar.open(error.error.error, 'Close', { 
+          duration: 3000, // 3 seconds
+          horizontalPosition: 'center', // To center it horizontally
+          verticalPosition: 'top',
+          panelClass: ['custom-snack-bar'] 
+        });
+      },
+    });
+  }
+
+  onUpdateTypeChange(event: any) {
+    this.selectedUpdateType = event;
+    this.http.get(`https://rigidjersey.com/backend-api/api/get_category.php?category_type_id=${this.selectedUpdateType}`).subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.updateCategories = response.data;
+        } else {
+          this.snackBar.open('Failed to fetch categories', 'Close', { duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top', 
+            panelClass: ['custom-snack-bar'] });
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching categories:', error);
+        this.snackBar.open('Error fetching categories', 'Close', { duration: 3000, // 3 seconds
+          horizontalPosition: 'center', // To center it horizontally
+          verticalPosition: 'top', 
+          panelClass: ['custom-snack-bar'] });
+      }
+    );
+  }
+
+  onUpdateCategorySubmit(event: Event): void {
+    event.preventDefault(); // Prevent the default form behavior
+
+    const categoryId = this.updateCategoryInput.nativeElement.value;
+    const categoryName = this.updateCategoryNameInput.nativeElement.value;
+    const description = this.updateCategoryDescriptionInput.nativeElement.value;
+    const categoryImage = this.selectedFiles.updateCategoryImage;
+
+    if (categoryId && categoryName && description && categoryImage) {
+      const formData = new FormData();
+      formData.append('category_id', categoryId);
+      formData.append('category_name', categoryName);
+      formData.append('description', description);
+      formData.append('category_image', categoryImage);
+
+      const apiUrl = 'https://rigidjersey.com/backend-api/api/update_category.php';
+
+      this.http.post(apiUrl, formData).subscribe({
+        next: (response: any) => {
+          this.snackBar.open(response.message, 'Close', { 
+            duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar'] 
+          });
+          this.resetFields();
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          this.snackBar.open(error.error.error, 'Close', { 
+            duration: 3000, // 3 seconds
+            horizontalPosition: 'center', // To center it horizontally
+            verticalPosition: 'top',
+            panelClass: ['custom-snack-bar'] 
+          });
+        },
+      });
+    } else {
+      this.snackBar.open('Please provide all required fields', 'Close', { 
+        duration: 3000, // 3 seconds
+        horizontalPosition: 'center', // To center it horizontally
+        verticalPosition: 'top',
+        panelClass: ['custom-snack-bar'] 
       });
     }
   }

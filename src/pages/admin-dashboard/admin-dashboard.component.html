@@ -153,4 +153,56 @@
       </button>
     </form>
   </section>
+
+  <!-- Delete Catalog Section -->
+  <section class="upload-section">
+    <h3>Delete Catalog</h3>
+    <form (submit)="onDeleteCatalogSubmit($event)">
+      <div>
+        <label for="deleteUniqueCode">Unique Code:</label>
+        <input type="text" id="deleteUniqueCode" [(ngModel)]="deleteUniqueCode" name="deleteUniqueCode" required />
+      </div>
+      <button type="submit" [disabled]="!deleteUniqueCode">
+        Delete Catalog
+      </button>
+    </form>
+  </section>
+
+  <!-- Update Category Section -->
+  <section class="upload-section">
+    <h3>Update Category</h3>
+    <form (submit)="onUpdateCategorySubmit($event)">
+      <label>
+        Type Filter:
+        <select #updateTypeInput (change)="onUpdateTypeChange(updateTypeInput.value)" required>
+          <option value="">Select a Type</option>
+          <!-- Loop through the categories array to populate the options -->
+          <option *ngFor="let type of types" [value]="type.id">{{ type.name }}</option>
+        </select>
+      </label>
+      <label>
+        Category:
+        <select [disabled]="!selectedUpdateType" #updateCategoryInput required>
+          <option value="">Select a category</option>
+          <!-- Loop through the categories array to populate the options -->
+          <option *ngFor="let category of updateCategories" [value]="category.id">{{ category.name }}</option>
+        </select>
+      </label>
+      <label>
+        Category Name:
+        <input type="text" #updateCategoryNameInput required />
+      </label>
+      <label>
+        Description:
+        <textarea #updateCategoryDescriptionInput required></textarea>
+      </label>
+      <label>
+        Category Image:
+        <input type="file" #updateCategoryImageInput accept="image/*" required (change)="onFileSelect($event, 'updateCategoryImage')" />
+      </label>
+      <button type="submit" [disabled]="!updateCategoryNameInput.value || !updateCategoryDescriptionInput.value || !updateCategoryImageInput.files?.[0]">
+        Update Category
+      </button>
+    </form>
+  </section>
 </div>
