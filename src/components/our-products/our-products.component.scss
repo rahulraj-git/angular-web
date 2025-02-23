@@ -2,6 +2,8 @@
   background-color: white;
   text-align: center;
   padding: 20px;
+  position: relative;
+  overflow: hidden;
 
   .products-title {
     font-size: 2rem;
@@ -12,6 +14,8 @@
 
   .carousel-inner {
     position: relative;
+    overflow: visible;
+    padding: 0 50px;
     img {
       width: 100%;
       height: auto;
@@ -35,10 +39,14 @@
   @media (min-width: 768px) {
     .carousel-control-prev {
       left: -50px;
+      position: absolute;
+      z-index: 1;
     }
 
     .carousel-control-next {
       right: -50px;
+      position: absolute;
+      z-index: 1;
     }
   }
 

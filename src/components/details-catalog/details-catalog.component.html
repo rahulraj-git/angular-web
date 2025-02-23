@@ -1,24 +1,28 @@
 <div class="catalog-details-container">
   <button class="back-btn" (click)="goBack()">&#8592; Back</button>
-    <div class="catalog-header">
-      <h1>{{ productDetails?.name }}</h1>
-    </div>
   
+  <div class="catalog-content">
     <div class="catalog-image-container">
       <img [src]="convertImageUrl(productDetails?.image_url)" alt="Product Image" class="catalog-image" />
     </div>
-  
-    <div class="catalog-info">
-     
-      <div class="catalog-item">
-        <h3><b>Description:</b><span> {{productDetails?.description}}</span> </h3>
+
+    <div class="catalog-details">
+      <div class="catalog-header">
+        <h1>{{ productDetails?.name }}</h1>
       </div>
-      <div class="catalog-item">
-        <h3><b>Unique Code:</b><span> {{ productDetails?.unique_code }}</span></h3>
+
+      <div class="catalog-info">
+        <div class="catalog-item">
+          <h3><b>Description:</b><span> {{productDetails?.description}}</span></h3>
+        </div>
+        <div class="catalog-item">
+          <h3><b>Unique Code:</b><span> {{ productDetails?.unique_code }}</span></h3>
+        </div>
       </div>
-    </div>
-  
-    <div class="enquire-now">
-      <button class="enquire-button" (click)="onEnquireNow()">Enquire Now 📱💬</button>
+
+      <div class="enquire-now">
+        <button class="enquire-button" (click)="onEnquireNow()">Enquire Now 📱💬</button>
+      </div>
     </div>
   </div>
+</div>
