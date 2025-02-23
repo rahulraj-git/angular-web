@@ -1,6 +1,21 @@
 <div class="catalog-details-container">
   <button class="back-btn" (click)="goBack()">&#8592; Back</button>
   
+  <div class="navigation-buttons">
+    <button 
+      class="nav-btn prev-btn" 
+      [disabled]="!hasPreviousProduct || isNavigating"
+      (click)="navigateToPrevious()">
+      &#8592; Previous Product
+    </button>
+    <button 
+      class="nav-btn next-btn" 
+      [disabled]="!hasNextProduct || isNavigating"
+      (click)="navigateToNext()">
+      Next Product &#8594;
+    </button>
+  </div>
+
   <div class="catalog-content">
     <div class="catalog-image-container">
       <img [src]="convertImageUrl(productDetails?.image_url)" alt="Product Image" class="catalog-image" />

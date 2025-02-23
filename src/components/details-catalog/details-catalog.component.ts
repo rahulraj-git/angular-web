@@ -13,30 +13,112 @@ declare var gtag: Function;
 export class DetailsCatalogComponent implements OnInit {
   catalogId: string | null = null;
   productDetails: any = null;
+  productsList: any[] = [];
+  currentIndex: number = 0;
+  hasNextProduct: boolean = false;
+  hasPreviousProduct: boolean = false;
+  isNavigating: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private location: Location, private router: Router) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.catalogId = params['id'];
-
-      if (this.catalogId) {
-        this.fetchProductDetails(this.catalogId);
-      }
+    this.fetchRandomProducts().then(() => {
+      this.route.queryParams.subscribe(params => {
+        this.catalogId = params['id'];
+        if (this.catalogId && this.productsList.length > 0) {
+          this.currentIndex = this.productsList.findIndex(
+            p => Number(p.id) === Number(this.catalogId)
+          );
+          this.updateNavigationState();
+          this.fetchProductDetails(this.catalogId);
+          this.isNavigating = false;
+        }
+      });
     });
   }
 
-  fetchProductDetails(catalogId: string): void {
-    const apiUrl = `https://rigidjersey.com/backend-api/api/get_catalog_details.php/?catalog_id=${catalogId}`;
+  async fetchRandomProducts(): Promise<void> {
+    try {
+      // Use the same API as Our Products component
+      const response: any = await this.http.get('https://rigidjersey.com/backend-api/api/random_16_product.php').toPromise();
+      if (response.success) {
+        this.productsList = response.catalogs;
+        this.updateNavigationState();
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }
 
-    this.http.get(apiUrl).subscribe(
+  updateNavigationState(): void {
+    if (this.currentIndex < 0) this.currentIndex = 0;
+    if (this.currentIndex >= this.productsList.length) {
+      this.currentIndex = this.productsList.length - 1;
+    }
+
+    this.hasPreviousProduct = this.currentIndex > 0;
+    this.hasNextProduct = this.currentIndex < (this.productsList.length - 1);
+    
+    console.log('Navigation State Updated:', {
+      currentIndex: this.currentIndex,
+      hasPrevious: this.hasPreviousProduct,
+      hasNext: this.hasNextProduct,
+      totalProducts: this.productsList.length
+    });
+  }
+
+  navigateToNext(): void {
+    if (this.hasNextProduct && !this.isNavigating) {
+      this.isNavigating = true;
+      const nextProduct = this.productsList[this.currentIndex + 1];
+      
+      if (nextProduct) {
+        this.router.navigate(['/details-catalog'], { 
+          queryParams: { id: nextProduct.id }
+        }).then(() => {
+          this.fetchProductDetails(nextProduct.id);
+        }).catch(error => {
+          console.error('Navigation error:', error);
+          this.isNavigating = false;
+        });
+      } else {
+        this.isNavigating = false;
+      }
+    }
+  }
+
+  navigateToPrevious(): void {
+    if (this.hasPreviousProduct && !this.isNavigating) {
+      this.isNavigating = true;
+      const prevProduct = this.productsList[this.currentIndex - 1];
+      
+      if (prevProduct) {
+        this.router.navigate(['/details-catalog'], { 
+          queryParams: { id: prevProduct.id }
+        }).then(() => {
+          this.fetchProductDetails(prevProduct.id);
+        }).catch(error => {
+          console.error('Navigation error:', error);
+          this.isNavigating = false;
+        });
+      } else {
+        this.isNavigating = false;
+      }
+    }
+  }
+
+  fetchProductDetails(id: string): void {
+    const url = `https://rigidjersey.com/backend-api/api/get_catalog_details.php/?catalog_id=${id}`;
+    this.http.get(url).subscribe(
       (response: any) => {
-        if (response.success && response.data) {
+        if (response.success) {
           this.productDetails = response.data;
+          this.isNavigating = false;
         }
       },
-      (error) => {
-        console.error('Error fetching product details', error);
+      error => {
+        console.error('Error fetching product details:', error);
+        this.isNavigating = false;
       }
     );
   }
@@ -60,10 +142,24 @@ export class DetailsCatalogComponent implements OnInit {
     const baseUrl1 = 'https://rigidjersey.com/backend-api';
     return baseUrl1 + imagePath?.replace('..', ''); // Adjust the relative path to an absolute URL
   }
-  goBack() {
-    this.location.back(); // This will navigate back in the browser history
-    setTimeout(() => {
-      this.router.navigate([], { fragment: 'products' });
-    }, 100);
+  goBack(): void {
+    // Navigate to the Our Products section
+    this.router.navigate(['/'], { fragment: 'products' }).then(() => {
+      // Scroll to the products section after navigation
+      setTimeout(() => {
+        const element = document.getElementById('products');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
+
+    // Google Analytics tracking
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'back_to_products', {
+        event_category: 'Navigation',
+        event_label: 'Back from Product Details'
+      });
+    }
   }
 }
