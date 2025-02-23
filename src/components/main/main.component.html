@@ -1,9 +1,8 @@
 <div class="page-container">
   <!-- Navigation Bar -->
-  <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.opacity]="navbarOpacity"
-  [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : section=='servicesPage'||section=='gallery'? 'linear-gradient(to right, #696868, #000000)' : 'none'"
+  <nav id="nav" class="navbar" [class.scrolled]="isScrolled" [style.background-image]="isScrolled ? 'linear-gradient(to right, #696868, #000000)' : section=='servicesPage'||section=='gallery'? 'linear-gradient(to right, #696868, #000000)' : 'none'"
   [style.box-shadow]="isScrolled ? '0 2px 5px rgba(0, 0, 0, 0.1)' : 'none'"
-  [style.opacity]="isHovered ? 1 : navbarOpacity"
+  [style.opacity]="isScrolled ? '1' : '1'"
   (mouseover)="isHovered = true" 
   (mouseout)="isHovered = false">
     <div (click)="navigateTo('nav')" class="logo">
@@ -123,7 +122,7 @@
 
   <!-- Scroll to Top Button -->
   <button *ngIf="showScrollToTop" class="scroll-to-top" (click)="scrollToTop()">
-    ↑ Top
+    ↑
   </button>
 
 </div>
