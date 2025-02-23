@@ -23,19 +23,32 @@ export class GallaryComponent implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   goBack() {
-    // Emit a value when this method is called
     this.navigateBack.emit('backToParent');
-    setTimeout(() => {
-      this.router.navigate([], { fragment: 'gallery' });
+    
+    // Navigate to home
+    this.router.navigate(['/']).then(() => {
+      setTimeout(() => {
+        const galleryElement = document.getElementById('gallery');
+        if (galleryElement) {
+          const offset = 70; // Adjust this value based on your navbar height
+          const elementPosition = galleryElement.offsetTop;
+          const scrollPosition = elementPosition - offset;
+          
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 300); // Increased timeout to ensure DOM is fully loaded
+    });
 
-      // Google Analytics tracking code
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'gallery_back_button_clicked', {
-          event_category: 'Navigation',
-          event_label: 'Gallery Back Button'
-        });
-      }
-    }, 100);
+    // Google Analytics tracking code
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'gallery_back_button_clicked', {
+        event_category: 'Navigation',
+        event_label: 'Gallery Back Button'
+      });
+    }
   }
   fetchGalleryImages(): void {
     const baseUrl = 'https://rigidjersey.com/backend-api/'; // Base URL for images

@@ -361,9 +361,23 @@ export class MainComponent implements OnInit {
 
   handleNavigateBack(event: string) {
     console.log('Received from child:', event);
-    // Example: Change the section based on the emitted value
     if (event === 'backToParent') {
       this.section = 'other';
+      
+      // Add timeout to ensure the DOM is updated
+      setTimeout(() => {
+        const galleryElement = document.getElementById('gallery');
+        if (galleryElement) {
+          const offset = 70; // Adjust this value based on your navbar height
+          const elementPosition = galleryElement.offsetTop;
+          const scrollPosition = elementPosition - offset;
+          
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
 
       // Google Analytics tracking code
       if (typeof gtag !== 'undefined') {

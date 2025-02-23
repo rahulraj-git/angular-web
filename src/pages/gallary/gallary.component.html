@@ -1,4 +1,4 @@
-<div class="admin-dashboard-container">
+<div class="admin-dashboard-container" [ngClass]="backbtn ? 'pad-80' : 'pad-20'">
     <button *ngIf="backbtn" class="back-btn" (click)="goBack()">&#8592; Back</button> 
     <h2  [ngStyle]="{ 'margin-top': backbtn ? '80px' : '0px' }" class="gallery-head text-center">Gallery</h2>
     <div class="gallery-container">
