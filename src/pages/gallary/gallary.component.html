@@ -1,10 +1,25 @@
 <div class="admin-dashboard-container" [ngClass]="backbtn ? 'pad-80' : 'pad-20'">
     <button *ngIf="backbtn" class="back-btn" (click)="goBack()">&#8592; Back</button> 
     <h2  [ngStyle]="{ 'margin-top': backbtn ? '80px' : '0px' }" class="gallery-head text-center">Gallery</h2>
-    <div class="gallery-container">
+    <div class="gallery-container" [attr.data-view]="isHomeView ? 'home' : 'gallery'">
       <!-- Use slice to limit the array size to 4 if backbtn is false -->
       <div class="gallery-item" *ngFor="let image of (backbtn ? galleryImages : galleryImages?.slice(0, 4))">
-        <img [src]="image.image_url" alt="Customer Gallery Image" class="gallery-image">
+        <img [src]="image.image_url" alt="Customer Gallery Image" class="gallery-image" (click)="openImagePopup(image.image_url)">
       </div>
     </div>
   </div>
+
+<!-- Image Popup Modal -->
+<div class="image-popup" *ngIf="selectedImage" (click)="closeImagePopup()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeImagePopup()">×</button>
+        <div class="zoom-controls">
+            <button (click)="zoomIn()">+</button>
+            <button (click)="zoomOut()">-</button>
+        </div>
+        <img [src]="selectedImage" 
+             [style.transform]="'scale(' + zoomLevel + ')'"
+             alt="Enlarged Gallery Image" 
+             class="popup-image">
+    </div>
+</div>
