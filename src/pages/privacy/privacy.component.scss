@@ -1,11 +1,11 @@
 /* Page Layout */
-.privacy-policy-page {
+.privacy-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
   
-  .privacy-policy {
+  .privacy-content {
     flex: 1; /* Ensures the main content takes available space */
     padding: 20px;
     background-color: #fff;
@@ -18,7 +18,7 @@
   .header {
     background-image: linear-gradient(to right, #696868, #000000);
     color: white;
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,6 +27,24 @@
   .header h1 {
     font-size: 1.5rem;
     margin: 0;
+  }
+  
+  /* Back Button */
+  .back-btn {
+    background-color: #cc0609;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #a30508;
+    }
   }
   
   .nav-links {
@@ -81,4 +99,20 @@
   
   .footer-links a:hover {
     color: #ffcccb; /* Lighter shade for hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header {
+      padding: 10px 15px;
+    }
+  
+    .header h1 {
+      font-size: 1.2rem;
+    }
+  
+    .back-btn {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
   }

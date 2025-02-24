@@ -18,7 +18,7 @@
   .header {
     background-image: linear-gradient(to right, #696868, #000000);
     color: white;
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -58,4 +58,21 @@
   
   .footer-links a:hover {
     color: #ffcccb; /* Lighter shade for hover */
+  }
+
+  .back-btn {
+    background-color: #cc0609;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #a30508;
+    }
   }
