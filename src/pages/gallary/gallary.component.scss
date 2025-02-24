@@ -81,6 +81,8 @@
     max-width: 90%;
     max-height: 90vh;
     overflow: hidden;
+    user-select: none;
+    touch-action: pan-y pinch-zoom;
 }
 
 .popup-image {
@@ -134,4 +136,45 @@
 
 .close-btn:hover, .zoom-controls button:hover {
     background: #a30508;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(204, 6, 9, 0.7);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 60px;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  z-index: 1001;
+
+  &:hover {
+    background: rgba(204, 6, 9, 0.9);
+  }
+
+  &.prev-btn {
+    left: 10px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  &.next-btn {
+    right: 10px;
+    border-radius: 5px 0 0 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-btn {
+    width: 35px;
+    height: 50px;
+    font-size: 20px;
+    background: rgba(204, 6, 9, 0.8);
+  }
 }

@@ -11,12 +11,22 @@
 
 <!-- Image Popup Modal -->
 <div class="image-popup" *ngIf="selectedImage" (click)="closeImagePopup()">
-    <div class="popup-content" (click)="$event.stopPropagation()">
+    <div class="popup-content" 
+         (click)="$event.stopPropagation()"
+         (touchstart)="handleTouchStart($event)"
+         (touchmove)="handleTouchMove($event)"
+         (touchend)="handleTouchEnd()">
         <button class="close-btn" (click)="closeImagePopup()">×</button>
+        
+        <!-- Navigation buttons -->
+        <button class="nav-btn prev-btn" (click)="showPreviousImage()">❮</button>
+        <button class="nav-btn next-btn" (click)="showNextImage()">❯</button>
+
         <div class="zoom-controls">
             <button (click)="zoomIn()">+</button>
             <button (click)="zoomOut()">-</button>
         </div>
+        
         <img [src]="selectedImage" 
              [style.transform]="'scale(' + zoomLevel + ')'"
              alt="Enlarged Gallery Image" 

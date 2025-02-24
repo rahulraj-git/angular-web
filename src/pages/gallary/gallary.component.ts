@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // For displaying messages
@@ -18,6 +18,7 @@ export class GallaryComponent implements OnInit {
   selectedImage: string | null = null;
   zoomLevel: number = 1;
   isHomeView: boolean = false;
+  currentImageIndex: number = 0;
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {}
 
@@ -86,7 +87,8 @@ export class GallaryComponent implements OnInit {
 
   openImagePopup(imageUrl: string) {
     this.selectedImage = imageUrl;
-    this.zoomLevel = 1; // Reset zoom level when opening new image
+    this.currentImageIndex = this.galleryImages.findIndex((img: any) => img.image_url === imageUrl);
+    this.zoomLevel = 1;
     
     // Google Analytics tracking
     if (typeof gtag !== 'undefined') {
@@ -111,6 +113,65 @@ export class GallaryComponent implements OnInit {
   zoomOut() {
     if (this.zoomLevel > 0.5) { // Minimum zoom level
       this.zoomLevel -= 0.2;
+    }
+  }
+
+  // Add keyboard event listener
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (this.selectedImage) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          this.showPreviousImage();
+          break;
+        case 'ArrowRight':
+          this.showNextImage();
+          break;
+        case 'Escape':
+          this.closeImagePopup();
+          break;
+      }
+    }
+  }
+
+  showNextImage() {
+    if (this.galleryImages && this.galleryImages.length > 0) {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.galleryImages.length;
+      this.selectedImage = this.galleryImages[this.currentImageIndex].image_url;
+      this.zoomLevel = 1; // Reset zoom level
+    }
+  }
+
+  showPreviousImage() {
+    if (this.galleryImages && this.galleryImages.length > 0) {
+      this.currentImageIndex = (this.currentImageIndex - 1 + this.galleryImages.length) % this.galleryImages.length;
+      this.selectedImage = this.galleryImages[this.currentImageIndex].image_url;
+      this.zoomLevel = 1; // Reset zoom level
+    }
+  }
+
+  // Add touch handling
+  touchStartX: number = 0;
+  touchEndX: number = 0;
+
+  handleTouchStart(event: TouchEvent) {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  handleTouchMove(event: TouchEvent) {
+    this.touchEndX = event.touches[0].clientX;
+  }
+
+  handleTouchEnd() {
+    const swipeThreshold = 50; // minimum distance for swipe
+    const swipeDistance = this.touchEndX - this.touchStartX;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        this.showPreviousImage();
+      } else {
+        this.showNextImage();
+      }
     }
   }
 }
